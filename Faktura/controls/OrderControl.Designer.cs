@@ -42,26 +42,27 @@ namespace Faktura
             // 
             // btnUslDodajDoFV
             // 
-            this.btnUslDodajDoFV.Location = new System.Drawing.Point(493, 176);
+            this.btnUslDodajDoFV.Location = new System.Drawing.Point(594, 64);
             this.btnUslDodajDoFV.Name = "btnUslDodajDoFV";
             this.btnUslDodajDoFV.Size = new System.Drawing.Size(97, 23);
             this.btnUslDodajDoFV.TabIndex = 17;
             this.btnUslDodajDoFV.Text = "Dodaj do faktury";
             this.btnUslDodajDoFV.UseVisualStyleBackColor = true;
-            this.btnUslDodajDoFV.Click += new EventHandler(btnUslDodajDoFV_Click);
+            this.btnUslDodajDoFV.Click += new EventHandler(this.btnUslDodajDoFV_Click);
             // 
             // btnUslDel
             // 
-            this.btnUslDel.Location = new System.Drawing.Point(641, 215);
+            this.btnUslDel.Location = new System.Drawing.Point(771, 93);
             this.btnUslDel.Name = "btnUslDel";
             this.btnUslDel.Size = new System.Drawing.Size(97, 23);
             this.btnUslDel.TabIndex = 16;
             this.btnUslDel.Text = "Usuń";
             this.btnUslDel.UseVisualStyleBackColor = true;
+            btnUslDel.Click += new EventHandler(btnUslDel_Click);
             // 
             // btnUslRefresh
             // 
-            this.btnUslRefresh.Location = new System.Drawing.Point(641, 253);
+            this.btnUslRefresh.Location = new System.Drawing.Point(771, 143);
             this.btnUslRefresh.Name = "btnUslRefresh";
             this.btnUslRefresh.Size = new System.Drawing.Size(94, 23);
             this.btnUslRefresh.TabIndex = 15;
@@ -70,7 +71,7 @@ namespace Faktura
             // 
             // textBoxUslNazwa
             // 
-            this.textBoxUslNazwa.Location = new System.Drawing.Point(484, 24);
+            this.textBoxUslNazwa.Location = new System.Drawing.Point(594, 24);
             this.textBoxUslNazwa.Name = "textBoxUslNazwa";
             this.textBoxUslNazwa.Size = new System.Drawing.Size(274, 20);
             this.textBoxUslNazwa.TabIndex = 14;
@@ -78,7 +79,7 @@ namespace Faktura
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(405, 27);
+            this.label28.Location = new System.Drawing.Point(515, 27);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(73, 13);
             this.label28.TabIndex = 13;
@@ -86,21 +87,23 @@ namespace Faktura
             // 
             // btnUslugaDodaj
             // 
-            this.btnUslugaDodaj.Location = new System.Drawing.Point(641, 176);
+            this.btnUslugaDodaj.Location = new System.Drawing.Point(771, 64);
             this.btnUslugaDodaj.Name = "btnUslugaDodaj";
             this.btnUslugaDodaj.Size = new System.Drawing.Size(97, 23);
             this.btnUslugaDodaj.TabIndex = 12;
             this.btnUslugaDodaj.Text = "Dodaj";
             this.btnUslugaDodaj.UseVisualStyleBackColor = true;
+            this.btnUslugaDodaj.Click += new System.EventHandler(this.btnUslugaDodaj_Click);
             // 
             // dataGridViewUslugi
             // 
+            this.dataGridViewUslugi.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewUslugi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewUslugi.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewUslugi.Name = "dataGridViewUslugi";
-            this.dataGridViewUslugi.Size = new System.Drawing.Size(333, 531);
+            this.dataGridViewUslugi.Size = new System.Drawing.Size(449, 531);
             this.dataGridViewUslugi.TabIndex = 11;
-            this.dataGridViewUslugi.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(dataGridViewUslugi_CellContentClick);
+            this.dataGridViewUslugi.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewUslugi_CellContentClick);
             // 
             // OrderControl
             // 

@@ -13,9 +13,9 @@ namespace Faktura
             list = initializeControlsList();
             buyersControl1.UpdateText += new EventHandler<BuyerEventArgs>(buyersControl1_UpdateText);
             orderControl1.UpdateText += new EventHandler<OrderEventArgs>(orderControl1_UpdateText);
+            invoicesListControl1.UpdateText += new EventHandler<InvoiceEventArgs>(invoicesListControl1_UpdateText);
             invoiceControl1.ShowBuyers += new EventHandler(invoiceControl1_ShowBuyers);
             invoiceControl1.ShowOrders += new EventHandler(orderControl1_ShowOrders);
-            
         }
 
         void invoiceControl1_ShowBuyers(object sender, EventArgs e)
@@ -26,6 +26,11 @@ namespace Faktura
         void orderControl1_ShowOrders(object sender, EventArgs e)
         {
             showUserControl(orderControl1);
+        }
+
+        void invoicesListControl1_ShowInvoice(object sender, EventArgs e)
+        {
+            showUserControl(invoiceControl1);
         }
 
         void buyersControl1_UpdateText(object sender, BuyerEventArgs e)
@@ -50,6 +55,23 @@ namespace Faktura
             showUserControl(invoiceControl1);
         }
 
+        void invoicesListControl1_UpdateText(object sender, InvoiceEventArgs e)
+        {
+            Invoice invoice = new Invoice();
+            SQLiteDatabase db = new SQLiteDatabase();
+            Buyer buyer = db.getBuyer(e.buyer_id);
+            SQLiteDatabase db1 = new SQLiteDatabase();
+            Order order = db1.getOrder(e.order_id);
+            invoice.buyer_id = e.buyer_id;
+            invoice.order_id = e.order_id;
+            invoice.payment_method = e.payment_method;
+            invoice.vat = e.vat;
+            invoiceControl1.updateInvoice = invoice;
+            invoiceControl1.updateInvoiceBuyer = buyer;
+            invoiceControl1.updateOrder = order;
+            showUserControl(invoiceControl1);
+        }
+
         public void showUserControl(UserControl control)
         {
             list.ForEach(c => {
@@ -66,11 +88,11 @@ namespace Faktura
 
         private List<UserControl> initializeControlsList()
         {
-            this.invoiceControl1.Hide();
-            this.invoicesListControl1.Hide();
-            this.sellerControl1.Hide();
-            this.buyersControl1.Hide();
-            this.orderControl1.Hide();
+            invoiceControl1.Hide();
+            invoicesListControl1.Hide();
+            sellerControl1.Hide();
+            buyersControl1.Hide();
+            orderControl1.Hide();
             List<UserControl> list = new List<UserControl>();
             list.Add(this.invoiceControl1);
             list.Add(this.invoicesListControl1);

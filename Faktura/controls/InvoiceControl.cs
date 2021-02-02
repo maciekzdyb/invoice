@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using System.Globalization;
 
 namespace Faktura
 {
@@ -13,11 +13,15 @@ namespace Faktura
         private Invoice invoice;
         private Buyer buyer;
         private Order order;
+        private Seller seller;
 
         public InvoiceControl()
         {
             InitializeComponent();
             invoice = new Invoice();
+            invoice.payment_method = platnoscComboBox.Text;
+            invoice.payment_deadline = platnoscNumericUpDown1.Value.ToString(); 
+            seller = new Seller();
             buyer = new Buyer();
             order = new Order();
             domyslny_sprzedawca();
@@ -50,152 +54,41 @@ namespace Faktura
             }
         }
 
+        public Invoice updateInvoice
+        {
+            get { return invoice; }
+            set
+            {
+                Invoice oldInv = invoice;
+                invoice = value;
+                invoice.no = oldInv.no;
+                invoice.seller_id = oldInv.seller_id;
+                invoice.issue_date = oldInv.issue_date;
+                invoice.sell_date = oldInv.sell_date;
+                //TODO
+            }
+        }
+
         private bool validate()
         {
-            if (this.nrFVtextBox.Text == "" || this.nazwaSprzedtextBox.Text == "" || this.nazwaNabtextBox.Text == "" || this.uslugaTextBox.Text == "" || this.cenaNettoTextBox.Text == "")
+            if (nrFVtextBox.Text == "" || nazwaSprzedtextBox.Text == "" || nazwaNabtextBox.Text == "" || uslugaTextBox.Text == "" || cenaNettoTextBox.Text == "")
             {
                 return false;
             }
-            else return true;
-        }
-
-        private void rysujBox(string text, int x, int y, int w, int h, Font font, StringFormat sf, string kolor, PrintPageEventArgs e)
-        {
-            SolidBrush solidBrush = new SolidBrush(Color.Black);
-            Rectangle rect = new Rectangle(x, y, w, h);
-            e.Graphics.DrawString(text, font, solidBrush, rect, sf);
-            if (kolor == "w")
-                e.Graphics.DrawRectangle(Pens.White, rect);
             else
-                e.Graphics.DrawRectangle(Pens.Black, rect);
-
+            {
+                invoice.issue_date = wystawdateTimePicker.Text;
+                invoice.sell_date = sprzedazDateTimePicker.Text;
+                invoice.payment_deadline = platnoscDateTimePicker.Text;
+                invoice.net = cenaNettoTextBox.Text;
+                return true;
+            }
         }
 
         void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
-
-            Font arial12b = new Font("Arial", 12, FontStyle.Bold);
-            Font arial17 = new Font("Arial", 17, FontStyle.Bold);
-            Font Times9 = new Font("Times New Roman", 9);
-            Font Arial9 = new Font("Arial", 8);
-            Font Arial6 = new Font("Arial", 6);
-            Font Arial8b = new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point);
-
-            SolidBrush solidBrush = new SolidBrush(Color.Black);                    //kolor pędzla
-            Pen myPen = new Pen(Color.DarkGray);
-            Graphics formGraphics = this.CreateGraphics();
-
-            SizeF stringSize = new SizeF();
-
-            StringFormat stringFormat = new StringFormat();
-            stringFormat.Alignment = StringAlignment.Center;
-            stringFormat.LineAlignment = StringAlignment.Center;
-
-            StringFormat stringFormatLeft = new StringFormat();
-            stringFormatLeft.Alignment = StringAlignment.Near;
-            stringFormatLeft.LineAlignment = StringAlignment.Near;
-
-            rysujBox("Faktura VAT", 330, 50, 180, 30, arial12b, stringFormat, "w", e);
-            rysujBox("Nr " + nrFVtextBox.Text, 330, 82, 180, 40, arial17, stringFormat, "w", e);
-            rysujBox("Oryginał/Kopia", 340, 110, 160, 20, Arial9, stringFormat, "w", e);
-
-            rysujBox("Data wystawienia: " + wystawdateTimePicker.Text, 570, 50, 180, 20, Arial9, stringFormat, "w", e);
-            rysujBox("Data sprzedaży: " + sprzedazDateTimePicker.Text, 575, 70, 180, 20, Arial9, stringFormat, "w", e);
-
-            //stringSize = e.Graphics.MeasureString(nr_faktury, arial17);
-            //e.Graphics.DrawString(nr_faktury, arial17, solidBrush, new PointF(345, 80));
-            string sprzedawca = "Sprzedawca";
-            e.Graphics.DrawString(sprzedawca, arial12b, solidBrush, new PointF(60, 200));
-            e.Graphics.DrawLine(myPen, 60, 200 + stringSize.Height, 350, 200 + stringSize.Height);
-            rysujBox(nazwaSprzedtextBox.Text, 60, 240, 310, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox(adresSprzedtextBox.Text, 60, 255, 310, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox(kodSprzedtextBox.Text, 60, 270, 40, 15, Arial9, stringFormat, "w", e);
-            rysujBox(miejscSprzedtextBox.Text, 100, 270, 60, 15, Arial9, stringFormat, "w", e);
-            rysujBox("NIP: " + nipSprzedtextBox.Text, 60, 285, 110, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox("Nr rachunku: " + rachunekSprzedBox.Text, 60, 300, 300, 15, Arial8b, stringFormatLeft, "w", e);
-            string nabywca = "Nabywca";
-            e.Graphics.DrawString(nabywca, arial12b, solidBrush, new PointF(440, 200));
-            e.Graphics.DrawLine(myPen, 440, 200 + stringSize.Height, 440 + 300, 200 + stringSize.Height);
-            rysujBox(nazwaNabtextBox.Text, 440, 240, 310, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox(adresNabtextBox.Text, 440, 255, 310, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox(kodNabtextBox.Text, 440, 270, 40, 15, Arial9, stringFormat, "w", e);
-            rysujBox(miejscNabtextBox.Text, 480, 270, 60, 15, Arial9, stringFormat, "w", e);
-            rysujBox("NIP: " + nipNabtextBox.Text, 440, 285, 110, 15, Arial9, stringFormatLeft, "w", e);
-
-            rysujBox("Lp.", 60, 350, 20, 30, Arial9, stringFormat, "b", e);
-            rysujBox("Nazwa towaru lub usługi", 80, 350, 330, 30, Arial9, stringFormat, "b", e);
-            rysujBox("ilość", 410, 350, 30, 30, Arial9, stringFormat, "b", e);
-            rysujBox("jm", 440, 350, 20, 30, Arial9, stringFormat, "b", e);
-            rysujBox("Cena netto", 460, 350, 60, 30, Arial9, stringFormat, "b", e);
-            rysujBox("Wartość netto", 520, 350, 60, 30, Arial9, stringFormat, "b", e);
-            rysujBox("Stawka VAT", 580, 350, 50, 30, Arial9, stringFormat, "b", e);
-            rysujBox("Kwota   VAT", 630, 350, 60, 30, Arial9, stringFormat, "b", e);
-            rysujBox("Wartość brutto", 690, 350, 60, 30, Arial9, stringFormat, "b", e);
-
-            int y = 0;
-            string text = uslugaTextBox.Text;
-            if (text.Length > 50)
-            {
-                if (text.Length > 90)
-                    y = 40;
-                else y = 20;
-            }
-
-            rysujBox("1", 60, 380, 20, 20 + y, Arial9, stringFormat, "b", e);
-            rysujBox(uslugaTextBox.Text, 80, 380, 330, 20 + y, Arial9, stringFormat, "b", e);
-            rysujBox("1", 410, 380, 30, 20 + y, Arial9, stringFormat, "b", e);
-            rysujBox("szt", 440, 380, 20, 20 + y, Arial9, stringFormat, "b", e);
-            rysujBox(cenaNettoTextBox.Text, 460, 380, 60, 20 + y, Arial9, stringFormat, "b", e);
-            rysujBox(cenaNettoTextBox.Text, 520, 380, 60, 20 + y, Arial9, stringFormat, "b", e);
-            rysujBox("23", 580, 380, 50, 20 + y, Arial9, stringFormat, "b", e);
-            decimal netto = Convert.ToDecimal(cenaNettoTextBox.Text);
-            decimal vat = netto * 0.23m;
-            vat = Decimal.Round(vat, 2);
-            rysujBox(Convert.ToString(vat), 630, 380, 60, 20 + y, Arial9, stringFormat, "b", e);
-            decimal cenabrutto = netto + vat;
-            cenabrutto = Decimal.Round(cenabrutto, 2);
-            rysujBox(Convert.ToString(cenabrutto), 690, 380, 60, 20 + y, Arial9, stringFormat, "b", e);
-
-            rysujBox("RAZEM", 460, 405 + y, 60, 20, Arial9, stringFormat, "b", e);
-            rysujBox(cenaNettoTextBox.Text, 520, 405 + y, 60, 20, Arial9, stringFormat, "b", e);
-            rysujBox("x", 580, 405 + y, 50, 20, Arial9, stringFormat, "b", e);
-            rysujBox(Convert.ToString(vat), 630, 405 + y, 60, 20, Arial9, stringFormat, "b", e);
-            rysujBox(Convert.ToString(cenabrutto), 690, 405 + y, 60, 20, Arial9, stringFormat, "b", e);
-
-            rysujBox("W tym", 460, 425 + y, 60, 20, Arial9, stringFormat, "b", e);
-            rysujBox(cenaNettoTextBox.Text, 520, 425 + y, 60, 20, Arial9, stringFormat, "b", e);
-            rysujBox("23%", 580, 425 + y, 50, 20, Arial9, stringFormat, "b", e);
-            rysujBox(Convert.ToString(vat), 630, 425 + y, 60, 20, Arial9, stringFormat, "b", e);
-            rysujBox(Convert.ToString(cenabrutto), 690, 425 + y, 60, 20, Arial9, stringFormat, "b", e);
-
-            string razemdozaplaty = "Razem do zapłaty: " + Convert.ToString(cenabrutto) + " zł";
-            Rectangle rect_razemdozaplaty = new Rectangle(60, 500 + y, 300, 20);
-            e.Graphics.DrawString(razemdozaplaty, Arial8b, solidBrush, rect_razemdozaplaty, stringFormatLeft);
-            e.Graphics.DrawRectangle(Pens.White, rect_razemdozaplaty);
-            //-------------------------------------------------------------------------------------------------------------
-            //TextFormatFlags flags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak;
-
-            string slownie = "Słownie: ";
-            Rectangle rect_slownie = new Rectangle(60, 520 + y, 690, 20);
-            decimal kwota = cenabrutto;
-            int zlote = (int)kwota;
-            int grosze = (int)(100 * kwota) % 100;
-            slownie += Formatowanie.LiczbaSlownie(zlote) + " " + Formatowanie.WalutaSlownie(zlote, "PLN") + " " + Formatowanie.LiczbaSlownie(grosze) + " " + Formatowanie.WalutaSlownie(grosze, "gr");
-            //TextRenderer.DrawText(e.Graphics, slownie, Arial8, rect_slownie, Color.Black, flags);
-            e.Graphics.DrawString(slownie, Arial9, solidBrush, rect_slownie, stringFormatLeft);
-            //e.Graphics.DrawRectangle(Pens.Black, rect_slownie);
-
-            rysujBox("Forma płatności: " + platnoscComboBox.Text, 60, 550 + y, 160, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox("Termin płatności: " + platnoscDateTimePicker.Text, 60, 565 + y, 160, 15, Arial8b, stringFormatLeft, "w", e);
-
-            string aga = "Agata Pijanowska-Zdyb";
-            e.Graphics.DrawString(aga, Arial9, solidBrush, new PointF(130, 680 + y));
-
-            rysujBox("imię, nazwisko i podpis osoby upoważnionej do wystawienia dokumentu", 90, 710 + y, 220, 30, Arial9, stringFormat, "w", e);
-            rysujBox("imię, nazwisko i podpis osoby upoważnionej do odbioru dokumentu", 490, 710 + y, 200, 30, Arial9, stringFormat, "w", e);
-
-            myPen.Dispose();
-            formGraphics.Dispose();
+            Printing printing = new Printing();
+            printing.printContent(e, this, invoice, seller, buyer, order);
         }
 
         private void domyslny_sprzedawca()
@@ -205,17 +98,25 @@ namespace Faktura
                 SQLiteDatabase db = new SQLiteDatabase();
                 DataTable tablica;
                 //query += "from sprzedawca;";
-                string query = "SELECT nazwa \"Nazwa\", kod \"Kod\", miasto \"Miasto\", adres \"Adres\", nip \"Nip\", rachunek \"Rachunek\" FROM sprzedawca WHERE id = 9;";
+                string query = "SELECT id \"Id\", nazwa \"Nazwa\", kod \"Kod\", miasto \"Miasto\", adres \"Adres\", nip \"Nip\", rachunek \"Rachunek\", podpis \"Podpis\" FROM sprzedawca WHERE id = 9;";
                 tablica = db.GetDataTable(query);
 
                 foreach (DataRow r in tablica.Rows)
                 {
+                    seller.id = int.Parse(r["Id"].ToString());
                     nazwaSprzedtextBox.Text = r["Nazwa"].ToString();
+                    seller.name = r["Nazwa"].ToString(); 
                     kodSprzedtextBox.Text = r["Kod"].ToString();
+                    seller.postCode = r["Kod"].ToString();
                     miejscSprzedtextBox.Text = r["Miasto"].ToString();
+                    seller.city = r["Miasto"].ToString();
                     adresSprzedtextBox.Text = r["Adres"].ToString();
+                    seller.address = r["Adres"].ToString();
                     nipSprzedtextBox.Text = r["Nip"].ToString();
+                    seller.nip = r["Nip"].ToString();
                     rachunekSprzedBox.Text = r["Rachunek"].ToString();
+                    seller.rachunek = r["Rachunek"].ToString();
+                    seller.signature = r["Podpis"].ToString();
                 }
             }
             catch (Exception fail)
@@ -232,6 +133,8 @@ namespace Faktura
             SQLiteDatabase db = new SQLiteDatabase();
             string sql = "SELECT COUNT(*) FROM faktura";
             string snumer;
+            int actYear = wystawdateTimePicker.Value.Year;
+
             if (db.ExecuteScalar(sql) != "0")
             {
                 sql = "SELECT MAX(id) FROM faktura";
@@ -243,24 +146,34 @@ namespace Faktura
                 char delimiter = '/';
                 String[] substrings = snr.Split(delimiter);
                 int numer = int.Parse(substrings[0]);
-                numer++;
-                if (numer < 10)
+                int invYear = int.Parse(substrings[1]);
+                int year = invYear;
+                if (actYear> invYear)
                 {
-                    nrFVtextBox.Text = "0" + numer.ToString() + "/" + substrings[1];
-                }
-                else
+                    invoice.no = "01/" + actYear;
+                } else
                 {
-                    nrFVtextBox.Text = numer.ToString() + "/" + substrings[1];
+                    numer++;
+                    if (numer < 10)
+                    {
+                        invoice.no = "0" + numer.ToString() + "/" + substrings[1];
+                    }
+                    else
+                    {
+                        invoice.no = numer.ToString() + "/" + substrings[1];
+                    }
                 }
+                
             }
             else
             {
-                int year = wystawdateTimePicker.Value.Year;
-                nrFVtextBox.Text = "01/" + year;
+                
+                invoice.no = "01/" + actYear;
 
                 string resetQUery = "UPDATE SQLITE_SEQUENCE SET SEQ = 0 WHERE NAME = 'faktura'";
                 db.ExecuteScalar(resetQUery);
             }
+            nrFVtextBox.Text = invoice.no;
 
         }
 
@@ -300,5 +213,86 @@ namespace Faktura
             eh?.Invoke(this, e);
         }
 
+
+        protected void NrFVtextBox_TextChanged(object sender, EventArgs e)
+        {
+            invoice.no = nrFVtextBox.Text;
+        }
+
+        protected void CenaNettoTextBox_TextChanged(object sender, EventArgs e)
+        {   
+            if (cenaNettoTextBox.Text != "")
+            {            
+                invoice.net = cenaNettoTextBox.Text;
+                decimal netto = Convert.ToDecimal(invoice.net, new CultureInfo("en-US"));
+                decimal vat = netto * 0.23m;
+                vat = Decimal.Round(vat, 2);
+                decimal cenabrutto = netto + vat;
+                cenabrutto = Decimal.Round(cenabrutto, 2);
+
+                textBoxVAT.Text = Convert.ToString(vat, new CultureInfo("en-US"));
+                textBoxBrutto.Text = Convert.ToString(cenabrutto, new CultureInfo("en-US"));
+                invoice.gross = textBoxBrutto.Text;
+                invoice.vat = textBoxVAT.Text;
+            } else
+            {
+                textBoxVAT.Clear();
+                textBoxBrutto.Clear();
+                invoice.gross = "";
+                invoice.vat = "";
+            }
+        }
+
+        protected void platnoscComboBox_TextChanged(object sender, EventArgs e)
+        {
+            invoice.payment_method = platnoscComboBox.Text;
+        }
+
+        protected void platnoscNumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            invoice.payment_deadline = platnoscNumericUpDown1.Value.ToString();
+            DateTime sellDate = sprzedazDateTimePicker.Value;
+            Decimal days = platnoscNumericUpDown1.Value;
+            platnoscDateTimePicker.Value = invoice.getDateDiff(sellDate, days);
+        }
+
+        protected void platnoscDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime deadLineDate = platnoscDateTimePicker.Value;
+            DateTime sellDate = sprzedazDateTimePicker.Value;
+            Decimal diff = invoice.getDateDiff(sellDate, deadLineDate);
+            platnoscNumericUpDown1.Value = diff;
+            invoice.payment_deadline = diff.ToString();
+        }
+
+        private void btnSafeInvoice_Click(object sender, EventArgs e)
+        {
+            if (invoice.IsCompleted())
+            {
+                SQLiteDatabase db = new SQLiteDatabase();
+                string sql = String.Format("SELECT COUNT(*) FROM {0} WHERE nr = '{1}'", "faktura", invoice.no);
+                if (db.ExecuteScalar(sql) == "0")
+                {
+                    string result = db.InsertInvoice(invoice);
+                    if (result.Equals("ok"))
+                    {
+                        MessageBox.Show("faktura zapisana pomyślnie");
+                        invoice = new Invoice();
+                        seller = new Seller();
+                        buyer = new Buyer();
+                        order = new Order();
+                        domyslny_sprzedawca();
+                        nr_faktury();
+
+                    } else
+                    {
+                        MessageBox.Show(result);
+                    }
+                } else
+                {
+                    MessageBox.Show("Numer faktury już istnieje w bazie. Faktura nie została zapisana.");
+                }
+            }
+        }
     }
 }

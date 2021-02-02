@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
@@ -7,16 +8,58 @@ namespace Faktura
     public partial class BuyersControl : UserControl
     {
         public event EventHandler<BuyerEventArgs> UpdateText;
+        private Buyer buyer;
 
         public BuyersControl()
         {
             InitializeComponent();
             fillDataGrid();
+            buyer = new Buyer();
 
         }
 
         private void btnDodajOdbiorce_Click(object sender, EventArgs e)
         {
+            if (textBoxNazwaNabywcy.Text != "" & textBoxAdresNabywcy.Text != "" & textBoxMisatoNabywcy.Text != "")
+            {
+                SQLiteDatabase db = new SQLiteDatabase();
+                string sql = String.Format("SELECT COUNT(*) FROM {0} WHERE nazwa = '{1}'", "nabywca", textBoxNazwaNabywcy.Text);
+                if (db.ExecuteScalar(sql) == "0")
+                {
+                    Dictionary<string, string> data = new Dictionary<string, string>();
+                    data.Add("nazwa", textBoxNazwaNabywcy.Text);
+                    data.Add("kod", textBoxKodNabywcy.Text);
+                    data.Add("miasto", textBoxMisatoNabywcy.Text);
+                    data.Add("adres", textBoxAdresNabywcy.Text);
+                    if (textBoxNipNabywcy.Text != "")
+                    {
+                        data.Add("nip", textBoxNipNabywcy.Text);
+                    }
+                    string insert = db.Insert("nabywca", data);
+                    if (insert == "ok")
+                    {
+                        MessageBox.Show("Pozycja dodana");
+                        textBoxNazwaNabywcy.Clear();
+                        textBoxKodNabywcy.Clear();
+                        textBoxMisatoNabywcy.Clear();
+                        textBoxAdresNabywcy.Clear();
+                        textBoxNipNabywcy.Clear();
+                        fillDataGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show(insert);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Podana pozycja jest już w bazie");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Uzupełnij pola");
+            }
         }
 
         private void btnDodajDoFaktury_Click(object sender, EventArgs e)
@@ -69,8 +112,9 @@ namespace Faktura
         private void dataGridViewOdbiorcy_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int wiersz = dataGridViewOdbiorcy.CurrentCell.RowIndex;
-            //idOdbiorcy = int.Parse(dataGridViewOdbiorcy[0, wiersz].Value.ToString());
+            buyer.id = int.Parse(dataGridViewOdbiorcy[0, wiersz].Value.ToString());
             textBoxNazwaNabywcy.Text = dataGridViewOdbiorcy[1, wiersz].Value.ToString();
+            buyer.name = dataGridViewOdbiorcy[1, wiersz].Value.ToString();
             textBoxKodNabywcy.Text = dataGridViewOdbiorcy[2, wiersz].Value.ToString();
             textBoxMisatoNabywcy.Text = dataGridViewOdbiorcy[3, wiersz].Value.ToString();
             textBoxAdresNabywcy.Text = dataGridViewOdbiorcy[4, wiersz].Value.ToString();
@@ -83,5 +127,72 @@ namespace Faktura
             if (eh != null)
                 eh(this, e);
         }
-    }
+
+        private void btnUsunOdbiorce_Click(object sender, EventArgs e)
+        {
+            if (buyer.id > 0)
+            {
+                SQLiteDatabase db = new SQLiteDatabase();
+                string checkQuery = "SELECT COUNT(*) FROM faktura WHERE id_nabywca = " + buyer.id;
+                if (db.ExecuteScalar(checkQuery) == "0")
+                {
+                    string wher = "nabywca.id = " + buyer.id;
+                    string delete = db.Delete("nabywca", wher);
+                    if (delete.Equals("ok"))
+                    {
+                        MessageBox.Show("Pozycja usunięta");
+                        textBoxNazwaNabywcy.Clear();
+                        textBoxKodNabywcy.Clear();
+                        textBoxMisatoNabywcy.Clear();
+                        textBoxAdresNabywcy.Clear();
+                        textBoxNipNabywcy.Clear();
+                        fillDataGrid();
+                        buyer = new Buyer();
+                    }
+                } else
+                {
+                    MessageBox.Show("Pozycja używana w fakturze, najpierw usuń fakturę");
+                }
+            } else
+            {
+                MessageBox.Show("Najpierw wybierz odbiorcę");
+            }
+        }
+
+        private void btnEdytujOdbiorce_Click(object sender, EventArgs e)
+        {
+            if (buyer.id > 0)
+            {
+                SQLiteDatabase db = new SQLiteDatabase();
+                string checkQuery = "SELECT COUNT(*) FROM faktura WHERE id_nabywca = " + buyer.id;
+                if (db.ExecuteScalar(checkQuery) == "0")
+                {
+                    Dictionary<string, string> dane = new Dictionary<string, string>();
+                    dane.Add("nazwa", textBoxNazwaNabywcy.Text);
+                    dane.Add("kod", textBoxKodNabywcy.Text);
+                    dane.Add("miasto", textBoxMisatoNabywcy.Text);
+                    dane.Add("adres", textBoxAdresNabywcy.Text);
+                    dane.Add("nip", textBoxNipNabywcy.Text);
+                    string wher = "nabywca.id=" + buyer.id;
+                    bool update = db.Update("nabywca", dane, wher);
+                    if (update)
+                    {
+                        MessageBox.Show("Uaktualniono");
+                    }
+                    else
+                    {
+                        MessageBox.Show("błąd..");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Pozycja używana w fakturze, najpierw usuń fakturę");
+                }
+            } else
+            {
+                MessageBox.Show("Najpierw wybierz odbiorcę");
+            }
+
+        }
+    }   
 }

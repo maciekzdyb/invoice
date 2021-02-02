@@ -10,8 +10,8 @@ namespace Faktura
         String dbConnection;
         public SQLiteDatabase()
         {
-              dbConnection = "Data Source=c:\\sqlite\\db\\faktura.db";
-            //dbConnection = "Data Source=faktura.db";
+              //dbConnection = "Data Source=c:\\sqlite\\db\\faktura.db";
+            dbConnection = "Data Source=faktura.db";
         }
 
         public SQLiteDatabase(String inputFile)
@@ -98,6 +98,112 @@ namespace Faktura
             return returnCode;
         }
 
+        internal Invoice getInvoice(string invoiceNo)
+        {
+            string query = "SELECT * FROM faktura WHERE nr = '";
+            query +=  invoiceNo + "'";
+            DataTable dt = GetDataTable(query);
+            Invoice invoice = new Invoice();
+            foreach (DataRow dr in dt.Rows)
+            {
+                invoice.id = int.Parse(dr["id"].ToString());
+                invoice.no = dr["nr"].ToString();
+                invoice.seller_id = int.Parse(dr["id_sprzedawca"].ToString());
+                invoice.buyer_id = int.Parse(dr["id_nabywca"].ToString());
+                invoice.order_id = int.Parse(dr["id_usluga"].ToString());
+                invoice.issue_date = dr["data_wyst"].ToString();
+                invoice.sell_date = dr["data_sprzed"].ToString();
+                invoice.payment_deadline = dr["termin_plat"].ToString();
+                invoice.payment_method = dr["forma_plat"].ToString();
+                invoice.net = dr["netto"].ToString();
+                invoice.vat = dr["vat"].ToString();
+                invoice.gross = dr["brutto"].ToString();
+            }
+            return invoice;
+        }
+
+        internal Buyer getBuyer(int id)
+        {
+            string query = "SELECT * FROM nabywca WHERE id = ";
+            query += id;
+            DataTable dt = GetDataTable(query);
+            Buyer buyer = new Buyer();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                buyer.id = int.Parse(dr["id"].ToString());
+                buyer.name = dr["nazwa"].ToString();
+                buyer.postCode = dr["kod"].ToString();
+                buyer.city = dr["miasto"].ToString();
+                buyer.address = dr["adres"].ToString();
+                buyer.nip = dr["nip"].ToString();
+            }
+                return buyer;
+        }
+
+        internal Seller getSeller(int id)
+        {
+            string query = "SELECT * FROM sprzedawca WHERE id = ";
+            query += id;
+            DataTable dt = GetDataTable(query);
+            Seller seller = new Seller();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                seller.id = int.Parse(dr["id"].ToString());
+                seller.name = dr["nazwa"].ToString();
+                seller.postCode = dr["kod"].ToString();
+                seller.city = dr["miasto"].ToString();
+                seller.address = dr["adres"].ToString();
+                seller.nip = dr["nip"].ToString();
+                seller.rachunek = dr["rachunek"].ToString();
+                seller.domyslny = bool.Parse(dr["domyslny"].ToString());
+                seller.signature = dr["podpis"].ToString();
+            }
+            return seller;
+        }
+
+        internal Order getOrder(int id)
+        {
+            string query = "SELECT * FROM usluga WHERE id = ";
+            query += id;
+            DataTable dt = GetDataTable(query);
+            Order order = new Order();
+
+            foreach(DataRow dr in dt.Rows)
+            {
+                order.id = int.Parse(dr["id"].ToString());
+                order.name = dr["nazwa"].ToString();
+            }
+            return order;
+        }
+
+        internal Order getOrderByName(string name)
+        {
+            string query = string.Format("SELECT * FROM usluga WHERE nazwa = '{0}'", name);
+            DataTable dt = GetDataTable(query);
+            Order order = new Order();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                order.id = int.Parse(dr["id"].ToString());
+                order.name = dr["nazwa"].ToString();
+            }
+            return order;
+        }
+
+        internal string insertOrder(string order)
+        {
+            Dictionary<string, string> dane = new Dictionary<string, string>();
+            dane.Add("nazwa", order);
+            return Insert("usluga", dane);
+        }
+
+        internal string deleteOrderById( string id)
+        {
+            return Delete("usluga", "id=" + id);   
+        }
+
         public String Delete(String tableName, String where)
         {
             String answer = "ok";
@@ -110,6 +216,23 @@ namespace Faktura
                 answer = fail.Message;
             }
             return answer;
+        }
+
+        public string InsertInvoice(Invoice invoice)
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("nr", invoice.no);
+            data.Add("id_sprzedawca", invoice.seller_id.ToString());
+            data.Add("id_nabywca", invoice.buyer_id.ToString());
+            data.Add("id_usluga", invoice.order_id.ToString());
+            data.Add("data_wyst", invoice.issue_date);
+            data.Add("data_sprzed", invoice.sell_date);
+            data.Add("forma_plat", invoice.payment_method);
+            data.Add("termin_plat", invoice.payment_deadline);
+            data.Add("netto", invoice.net);
+            data.Add("vat", invoice.vat);
+            data.Add("brutto", invoice.gross);
+            return Insert("faktura", data);
         }
 
         public String Insert(String tableName, Dictionary<String, String> data)

@@ -51,62 +51,70 @@ namespace Faktura
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(544, 194);
+            this.label34.Location = new System.Drawing.Point(816, 298);
+            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(25, 13);
+            this.label34.Size = new System.Drawing.Size(35, 20);
             this.label34.TabIndex = 53;
             this.label34.Text = "NIP";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(544, 146);
+            this.label33.Location = new System.Drawing.Point(816, 225);
+            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(34, 13);
+            this.label33.Size = new System.Drawing.Size(51, 20);
             this.label33.TabIndex = 52;
             this.label33.Text = "Adres";
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(544, 127);
+            this.label32.Location = new System.Drawing.Point(816, 195);
+            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(38, 13);
+            this.label32.Size = new System.Drawing.Size(56, 20);
             this.label32.TabIndex = 51;
             this.label32.Text = "Miasto";
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(543, 102);
+            this.label31.Location = new System.Drawing.Point(814, 157);
+            this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(26, 13);
+            this.label31.Size = new System.Drawing.Size(37, 20);
             this.label31.TabIndex = 50;
             this.label31.Text = "Kod";
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(538, 52);
+            this.label30.Location = new System.Drawing.Point(807, 80);
+            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(40, 13);
+            this.label30.Size = new System.Drawing.Size(57, 20);
             this.label30.TabIndex = 49;
             this.label30.Text = "Nazwa";
             // 
             // btnUsunOdbiorce
             // 
-            this.btnUsunOdbiorce.Location = new System.Drawing.Point(667, 280);
+            this.btnUsunOdbiorce.Location = new System.Drawing.Point(1000, 431);
+            this.btnUsunOdbiorce.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUsunOdbiorce.Name = "btnUsunOdbiorce";
-            this.btnUsunOdbiorce.Size = new System.Drawing.Size(94, 23);
+            this.btnUsunOdbiorce.Size = new System.Drawing.Size(141, 35);
             this.btnUsunOdbiorce.TabIndex = 48;
             this.btnUsunOdbiorce.Text = "Usuń z bazy";
             this.btnUsunOdbiorce.UseVisualStyleBackColor = true;
+            this.btnUsunOdbiorce.Click += new System.EventHandler(this.btnUsunOdbiorce_Click);
             // 
             // btnDodajOdbiorce
             // 
-            this.btnDodajOdbiorce.Location = new System.Drawing.Point(539, 280);
+            this.btnDodajOdbiorce.Location = new System.Drawing.Point(808, 431);
+            this.btnDodajOdbiorce.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDodajOdbiorce.Name = "btnDodajOdbiorce";
-            this.btnDodajOdbiorce.Size = new System.Drawing.Size(94, 23);
+            this.btnDodajOdbiorce.Size = new System.Drawing.Size(141, 35);
             this.btnDodajOdbiorce.TabIndex = 47;
             this.btnDodajOdbiorce.Text = "Dodaj do bazy";
             this.btnDodajOdbiorce.UseVisualStyleBackColor = true;
@@ -114,72 +122,81 @@ namespace Faktura
             // 
             // textBoxNipNabywcy
             // 
-            this.textBoxNipNabywcy.Location = new System.Drawing.Point(596, 191);
+            this.textBoxNipNabywcy.Location = new System.Drawing.Point(894, 294);
+            this.textBoxNipNabywcy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxNipNabywcy.Name = "textBoxNipNabywcy";
-            this.textBoxNipNabywcy.Size = new System.Drawing.Size(77, 20);
+            this.textBoxNipNabywcy.Size = new System.Drawing.Size(114, 26);
             this.textBoxNipNabywcy.TabIndex = 46;
             // 
             // textBoxAdresNabywcy
             // 
-            this.textBoxAdresNabywcy.Location = new System.Drawing.Point(539, 165);
+            this.textBoxAdresNabywcy.Location = new System.Drawing.Point(808, 254);
+            this.textBoxAdresNabywcy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxAdresNabywcy.Name = "textBoxAdresNabywcy";
-            this.textBoxAdresNabywcy.Size = new System.Drawing.Size(234, 20);
+            this.textBoxAdresNabywcy.Size = new System.Drawing.Size(349, 26);
             this.textBoxAdresNabywcy.TabIndex = 45;
             // 
             // textBoxMisatoNabywcy
             // 
-            this.textBoxMisatoNabywcy.Location = new System.Drawing.Point(596, 124);
+            this.textBoxMisatoNabywcy.Location = new System.Drawing.Point(894, 191);
+            this.textBoxMisatoNabywcy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxMisatoNabywcy.Name = "textBoxMisatoNabywcy";
-            this.textBoxMisatoNabywcy.Size = new System.Drawing.Size(66, 20);
+            this.textBoxMisatoNabywcy.Size = new System.Drawing.Size(97, 26);
             this.textBoxMisatoNabywcy.TabIndex = 44;
             // 
             // textBoxKodNabywcy
             // 
-            this.textBoxKodNabywcy.Location = new System.Drawing.Point(596, 98);
+            this.textBoxKodNabywcy.Location = new System.Drawing.Point(894, 151);
+            this.textBoxKodNabywcy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxKodNabywcy.Name = "textBoxKodNabywcy";
-            this.textBoxKodNabywcy.Size = new System.Drawing.Size(51, 20);
+            this.textBoxKodNabywcy.Size = new System.Drawing.Size(74, 26);
             this.textBoxKodNabywcy.TabIndex = 43;
             // 
             // textBoxNazwaNabywcy
             // 
-            this.textBoxNazwaNabywcy.Location = new System.Drawing.Point(542, 72);
+            this.textBoxNazwaNabywcy.Location = new System.Drawing.Point(813, 111);
+            this.textBoxNazwaNabywcy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxNazwaNabywcy.Name = "textBoxNazwaNabywcy";
-            this.textBoxNazwaNabywcy.Size = new System.Drawing.Size(234, 20);
+            this.textBoxNazwaNabywcy.Size = new System.Drawing.Size(349, 26);
             this.textBoxNazwaNabywcy.TabIndex = 42;
             // 
             // btnEdytujOdbiorce
             // 
-            this.btnEdytujOdbiorce.Location = new System.Drawing.Point(667, 244);
+            this.btnEdytujOdbiorce.Location = new System.Drawing.Point(1000, 375);
+            this.btnEdytujOdbiorce.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEdytujOdbiorce.Name = "btnEdytujOdbiorce";
-            this.btnEdytujOdbiorce.Size = new System.Drawing.Size(94, 23);
+            this.btnEdytujOdbiorce.Size = new System.Drawing.Size(141, 35);
             this.btnEdytujOdbiorce.TabIndex = 41;
             this.btnEdytujOdbiorce.Text = "Uaktualnij";
             this.btnEdytujOdbiorce.UseVisualStyleBackColor = true;
+            this.btnEdytujOdbiorce.Click += new System.EventHandler(this.btnEdytujOdbiorce_Click);
             // 
             // btnDodajDoFaktury
             // 
-            this.btnDodajDoFaktury.Location = new System.Drawing.Point(539, 244);
+            this.btnDodajDoFaktury.Location = new System.Drawing.Point(808, 375);
+            this.btnDodajDoFaktury.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDodajDoFaktury.Name = "btnDodajDoFaktury";
-            this.btnDodajDoFaktury.Size = new System.Drawing.Size(94, 23);
+            this.btnDodajDoFaktury.Size = new System.Drawing.Size(141, 35);
             this.btnDodajDoFaktury.TabIndex = 40;
             this.btnDodajDoFaktury.Text = "Dodaj do faktury";
             this.btnDodajDoFaktury.UseVisualStyleBackColor = true;
-            this.btnDodajDoFaktury.Click += new EventHandler(btnDodajDoFaktury_Click);
+            this.btnDodajDoFaktury.Click += new System.EventHandler(this.btnDodajDoFaktury_Click);
             // 
             // dataGridViewOdbiorcy
             // 
             this.dataGridViewOdbiorcy.AllowUserToAddRows = false;
             this.dataGridViewOdbiorcy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOdbiorcy.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewOdbiorcy.Location = new System.Drawing.Point(4, 5);
+            this.dataGridViewOdbiorcy.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridViewOdbiorcy.Name = "dataGridViewOdbiorcy";
             this.dataGridViewOdbiorcy.ReadOnly = true;
-            this.dataGridViewOdbiorcy.Size = new System.Drawing.Size(530, 515);
+            this.dataGridViewOdbiorcy.Size = new System.Drawing.Size(795, 792);
             this.dataGridViewOdbiorcy.TabIndex = 39;
             this.dataGridViewOdbiorcy.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOdbiorcy_CellContentClick);
             // 
             // BuyersControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
@@ -196,8 +213,9 @@ namespace Faktura
             this.Controls.Add(this.btnEdytujOdbiorce);
             this.Controls.Add(this.btnDodajDoFaktury);
             this.Controls.Add(this.dataGridViewOdbiorcy);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "BuyersControl";
-            this.Size = new System.Drawing.Size(884, 537);
+            this.Size = new System.Drawing.Size(1326, 826);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOdbiorcy)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

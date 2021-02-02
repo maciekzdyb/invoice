@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Faktura.Invoice invoice1 = new Faktura.Invoice();
+            Faktura.Buyer buyer1 = new Faktura.Buyer();
+            Faktura.Order order1 = new Faktura.Order();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fakturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nowaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,13 +52,15 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fakturaToolStripMenuItem,
             this.bazaDanychToolStripMenuItem,
             this.pomocToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(884, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
+            this.menuStrip1.Size = new System.Drawing.Size(1326, 35);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -64,20 +70,20 @@
             this.nowaToolStripMenuItem,
             this.wystawioneToolStripMenuItem});
             this.fakturaToolStripMenuItem.Name = "fakturaToolStripMenuItem";
-            this.fakturaToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.fakturaToolStripMenuItem.Size = new System.Drawing.Size(81, 29);
             this.fakturaToolStripMenuItem.Text = "Faktura";
             // 
             // nowaToolStripMenuItem
             // 
             this.nowaToolStripMenuItem.Name = "nowaToolStripMenuItem";
-            this.nowaToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.nowaToolStripMenuItem.Size = new System.Drawing.Size(192, 30);
             this.nowaToolStripMenuItem.Text = "Nowa";
             this.nowaToolStripMenuItem.Click += new System.EventHandler(this.nowaToolStripMenuItem_Click);
             // 
             // wystawioneToolStripMenuItem
             // 
             this.wystawioneToolStripMenuItem.Name = "wystawioneToolStripMenuItem";
-            this.wystawioneToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.wystawioneToolStripMenuItem.Size = new System.Drawing.Size(192, 30);
             this.wystawioneToolStripMenuItem.Text = "Wystawione";
             this.wystawioneToolStripMenuItem.Click += new System.EventHandler(this.wystawioneToolStripMenuItem_Click);
             // 
@@ -88,83 +94,113 @@
             this.sprzedawcaToolStripMenuItem,
             this.usługaToolStripMenuItem});
             this.bazaDanychToolStripMenuItem.Name = "bazaDanychToolStripMenuItem";
-            this.bazaDanychToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.bazaDanychToolStripMenuItem.Size = new System.Drawing.Size(124, 29);
             this.bazaDanychToolStripMenuItem.Text = "Baza Danych";
             // 
             // nabywcyToolStripMenuItem
             // 
             this.nabywcyToolStripMenuItem.Name = "nabywcyToolStripMenuItem";
-            this.nabywcyToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.nabywcyToolStripMenuItem.Size = new System.Drawing.Size(190, 30);
             this.nabywcyToolStripMenuItem.Text = "Nabywcy";
             this.nabywcyToolStripMenuItem.Click += new System.EventHandler(this.nabywcyToolStripMenuItem_Click);
             // 
             // sprzedawcaToolStripMenuItem
             // 
             this.sprzedawcaToolStripMenuItem.Name = "sprzedawcaToolStripMenuItem";
-            this.sprzedawcaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.sprzedawcaToolStripMenuItem.Size = new System.Drawing.Size(190, 30);
             this.sprzedawcaToolStripMenuItem.Text = "Sprzedawca";
             this.sprzedawcaToolStripMenuItem.Click += new System.EventHandler(this.sprzedawcaToolStripMenuItem_Click);
             // 
             // usługaToolStripMenuItem
             // 
             this.usługaToolStripMenuItem.Name = "usługaToolStripMenuItem";
-            this.usługaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.usługaToolStripMenuItem.Size = new System.Drawing.Size(190, 30);
             this.usługaToolStripMenuItem.Text = "Usługa";
             this.usługaToolStripMenuItem.Click += new System.EventHandler(this.usługaToolStripMenuItem_Click);
             // 
             // pomocToolStripMenuItem
             // 
             this.pomocToolStripMenuItem.Name = "pomocToolStripMenuItem";
-            this.pomocToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.pomocToolStripMenuItem.Size = new System.Drawing.Size(79, 29);
             this.pomocToolStripMenuItem.Text = "Pomoc";
             // 
             // invoicesListControl1
             // 
-            this.invoicesListControl1.Location = new System.Drawing.Point(0, 27);
+            this.invoicesListControl1.Location = new System.Drawing.Point(0, 42);
+            this.invoicesListControl1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.invoicesListControl1.Name = "invoicesListControl1";
-            this.invoicesListControl1.Size = new System.Drawing.Size(884, 537);
+            this.invoicesListControl1.Size = new System.Drawing.Size(1326, 826);
             this.invoicesListControl1.TabIndex = 5;
             // 
             // orderControl1
             // 
-            this.orderControl1.Location = new System.Drawing.Point(0, 27);
+            this.orderControl1.Location = new System.Drawing.Point(0, 42);
+            this.orderControl1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.orderControl1.Name = "orderControl1";
-            this.orderControl1.Size = new System.Drawing.Size(884, 537);
+            this.orderControl1.Size = new System.Drawing.Size(1326, 826);
             this.orderControl1.TabIndex = 4;
             // 
             // buyersControl1
             // 
-            this.buyersControl1.Location = new System.Drawing.Point(0, 27);
+            this.buyersControl1.Location = new System.Drawing.Point(0, 42);
+            this.buyersControl1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.buyersControl1.Name = "buyersControl1";
-            this.buyersControl1.Size = new System.Drawing.Size(884, 537);
+            this.buyersControl1.Size = new System.Drawing.Size(1326, 826);
             this.buyersControl1.TabIndex = 3;
             // 
             // sellerControl1
             // 
-            this.sellerControl1.Location = new System.Drawing.Point(0, 27);
+            this.sellerControl1.Location = new System.Drawing.Point(0, 42);
+            this.sellerControl1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.sellerControl1.Name = "sellerControl1";
-            this.sellerControl1.Size = new System.Drawing.Size(884, 537);
+            this.sellerControl1.Size = new System.Drawing.Size(1326, 826);
             this.sellerControl1.TabIndex = 2;
             // 
             // invoiceControl1
             // 
-            this.invoiceControl1.Location = new System.Drawing.Point(0, 27);
+            this.invoiceControl1.Location = new System.Drawing.Point(0, 42);
+            this.invoiceControl1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.invoiceControl1.Name = "invoiceControl1";
-            this.invoiceControl1.Size = new System.Drawing.Size(884, 537);
+            this.invoiceControl1.Size = new System.Drawing.Size(1326, 826);
             this.invoiceControl1.TabIndex = 1;
+            invoice1.buyer_id = 0;
+            invoice1.gross = null;
+            invoice1.id = 0;
+            invoice1.issue_date = null;
+            invoice1.net = null;
+            invoice1.no = "01/2021";
+            invoice1.order_id = 0;
+            invoice1.payment_deadline = "0";
+            invoice1.payment_method = "przelew";
+            invoice1.sell_date = null;
+            invoice1.seller_id = 0;
+            invoice1.vat = null;
+            this.invoiceControl1.updateInvoice = invoice1;
+            buyer1.address = null;
+            buyer1.city = null;
+            buyer1.id = 0;
+            buyer1.name = null;
+            buyer1.nip = null;
+            buyer1.postCode = null;
+            this.invoiceControl1.updateInvoiceBuyer = buyer1;
+            order1.id = 0;
+            order1.name = null;
+            this.invoiceControl1.updateOrder = order1;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(1326, 863);
             this.Controls.Add(this.invoicesListControl1);
             this.Controls.Add(this.orderControl1);
             this.Controls.Add(this.buyersControl1);
             this.Controls.Add(this.sellerControl1);
             this.Controls.Add(this.invoiceControl1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "Faktura VAT";
             this.menuStrip1.ResumeLayout(false);

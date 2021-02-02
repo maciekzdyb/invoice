@@ -72,5 +72,57 @@ namespace Faktura
             order.id = idUslugi;
             order.name = dataGridViewUslugi[1, wiersz].Value.ToString();
         }
+
+        private void btnUslugaDodaj_Click(object sender, EventArgs e)
+        {
+            if (textBoxUslNazwa.Text != "")
+            {
+                SQLiteDatabase db = new SQLiteDatabase();
+                Order order = db.getOrderByName(textBoxUslNazwa.Text);
+                if(order.name == textBoxUslNazwa.Text)
+                {
+                    MessageBox.Show("Podana nazwa usługi już jest w bazie");
+                } else
+                {
+                    db = new SQLiteDatabase();
+                    string answer = db.insertOrder(textBoxUslNazwa.Text);
+                    if (answer == "ok")
+                    {
+                        fillDataGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show(answer);
+                    }
+                }
+            } else
+            {
+                MessageBox.Show("Wypełnij pole nazwa");
+            }
+        }
+
+        private void btnUslDel_Click(object sender, EventArgs e)
+        {
+            if(order.id >0)
+            {
+                SQLiteDatabase db = new SQLiteDatabase();
+                string answer = db.deleteOrderById(order.id.ToString());
+                if (answer == "ok")
+                {
+                    MessageBox.Show("Usługa usunięta z bazy");
+                    textBoxUslNazwa.Clear();
+                    fillDataGrid();
+                }
+                else
+                {
+                    MessageBox.Show(answer);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz uługę");
+            }
+            
+        }
     }
 }
