@@ -127,7 +127,16 @@ namespace Faktura
 
             string slownie = "Słownie: ";
             Rectangle rect_slownie = new Rectangle(60, 520 + y, 690, 20);
-            decimal kwota = Convert.ToDecimal(invoice.gross, new CultureInfo("en-US"));
+            CultureInfo cultureInfo;
+            if (invoice.gross.Contains("."))
+            {
+                cultureInfo = new CultureInfo("en-US");
+            } else
+            {
+                cultureInfo = new CultureInfo("pl-PL");
+            }
+
+            decimal kwota = Convert.ToDecimal(invoice.gross, cultureInfo);
             int zlote = (int)kwota;
             int grosze = (int)(100 * kwota) % 100;
             slownie += Formatowanie.LiczbaSlownie(zlote) + " " + Formatowanie.WalutaSlownie(zlote, "PLN") + " " + Formatowanie.LiczbaSlownie(grosze) + " " + Formatowanie.WalutaSlownie(grosze, "gr");
@@ -139,25 +148,44 @@ namespace Faktura
 
             string[] sellTab = invoice.sell_date.Split('.');
             DateTime sellDate = new DateTime(int.Parse(sellTab[2]), int.Parse(sellTab[1]), int.Parse(sellTab[0]));
-            string[] deadlineTab = invoice.payment_deadline.Split('.');
-            DateTime deadlineDate = new DateTime(int.Parse(deadlineTab[2]), int.Parse(deadlineTab[1]), int.Parse(deadlineTab[0]));
-            TimeSpan result = deadlineDate - sellDate;
+            String days = "";
+            String deadlineStr = "";
+            if (invoice.payment_deadline.Contains("."))
+            {
+                string[] deadlineTab = invoice.payment_deadline.Split('.');
+                DateTime deadlineDate = new DateTime(int.Parse(deadlineTab[2]), int.Parse(deadlineTab[1]), int.Parse(deadlineTab[0]));
+                TimeSpan result = deadlineDate - sellDate;
+                days = result.TotalDays.ToString();
+                deadlineStr = invoice.payment_deadline;
+            } else
+            {
+                days = invoice.payment_deadline;
+                DateTime deadlineDate = sellDate.AddDays(Double.Parse(days));
+                deadlineStr = deadlineDate.ToString("dd.MM.yyyy");
+            }
+            
+            
             string paymentStr = "";
-            if (result.TotalDays == 1)
+            if (days.Equals("1"))
             {
                 paymentStr = " (1 dzień)";
             }
             else
             {
-                paymentStr = " (" + result.TotalDays.ToString() + " dni)";
+                paymentStr = " (" + days + " dni)";
             }
-            rysujBox("Termin płatności: " + invoice.payment_deadline + paymentStr, 60, 565 + y, 160, 15, Arial8b, stringFormatLeft, "w", e);
+            rysujBox("Termin płatności: " + deadlineStr + paymentStr, 60, 565 + y, 240, 15, Arial8b, stringFormatLeft, "w", e);
 
+            if (sellDate > new DateTime(2019, 11, 01) && kwota >15000)
+            {
+                rysujBox("Mechanizm podzielonej płatności", 60, 600 + y, 300, 15, Arial9, stringFormatLeft, "w", e);
+            }
             
-            e.Graphics.DrawString(seller.signature, Arial9, solidBrush, new PointF(130, 680 + y));
 
-            rysujBox("imię, nazwisko i podpis osoby upoważnionej do wystawienia dokumentu", 90, 710 + y, 220, 30, Arial9, stringFormat, "w", e);
-            rysujBox("imię, nazwisko i podpis osoby upoważnionej do odbioru dokumentu", 490, 710 + y, 200, 30, Arial9, stringFormat, "w", e);
+            e.Graphics.DrawString(seller.signature, Arial9, solidBrush, new PointF(130, 700 + y));
+
+            rysujBox("imię, nazwisko i podpis osoby upoważnionej do wystawienia dokumentu", 90, 730 + y, 220, 30, Arial9, stringFormat, "w", e);
+            rysujBox("imię, nazwisko i podpis osoby upoważnionej do odbioru dokumentu", 490, 730 + y, 200, 30, Arial9, stringFormat, "w", e);
 
             myPen.Dispose();
             formGraphics.Dispose();

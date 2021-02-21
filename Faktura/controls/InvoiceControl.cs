@@ -10,6 +10,7 @@ namespace Faktura
     {
         public event EventHandler ShowBuyers;
         public event EventHandler ShowOrders;
+        public event EventHandler UpdateInvoicesList;
         private Invoice invoice;
         private Buyer buyer;
         private Order order;
@@ -19,6 +20,11 @@ namespace Faktura
         {
             InitializeComponent();
             invoice = new Invoice();
+            if (platnoscComboBox.Text.Equals("przelew"))
+            {
+                platnoscNumericUpDown1.Value = 7;
+                invoice.payment_deadline = "7";
+            }
             invoice.payment_method = platnoscComboBox.Text;
             invoice.payment_deadline = platnoscNumericUpDown1.Value.ToString(); 
             seller = new Seller();
@@ -118,6 +124,7 @@ namespace Faktura
                     seller.rachunek = r["Rachunek"].ToString();
                     seller.signature = r["Podpis"].ToString();
                 }
+                invoice.seller_id = seller.id;
             }
             catch (Exception fail)
             {
@@ -212,40 +219,99 @@ namespace Faktura
             EventHandler eh = ShowOrders;
             eh?.Invoke(this, e);
         }
-
+        protected virtual void OnUpdateInvoicesList(EventArgs e)
+        {
+            EventHandler eh = UpdateInvoicesList;
+            eh?.Invoke(this, e);
+        }
 
         protected void NrFVtextBox_TextChanged(object sender, EventArgs e)
         {
             invoice.no = nrFVtextBox.Text;
         }
 
-        protected void CenaNettoTextBox_TextChanged(object sender, EventArgs e)
-        {   
-            if (cenaNettoTextBox.Text != "")
-            {            
-                invoice.net = cenaNettoTextBox.Text;
-                decimal netto = Convert.ToDecimal(invoice.net, new CultureInfo("en-US"));
-                decimal vat = netto * 0.23m;
-                vat = Decimal.Round(vat, 2);
-                decimal cenabrutto = netto + vat;
-                cenabrutto = Decimal.Round(cenabrutto, 2);
+        protected void amount_TextChanged(object sender, EventArgs e)
+        {
+            textBoxBrutto.TextChanged -= amount_TextChanged;
+            cenaNettoTextBox.TextChanged -= amount_TextChanged;
+            TextBox textBox = (TextBox)sender;
+            if(textBox.Text.Length > 0)
+            {
+                string last = textBox.Text.Substring(textBox.Text.Length - 1);
+                if (!last.Equals(","))
+                {
+                    decimal number;
+                    if (Decimal.TryParse(textBox.Text,out number))
+                    {
+                        if (textBox.Name.Equals("cenaNettoTextBox"))
+                        {
+                            countAmount(number, true);
+                            updateAmounts(true);
 
-                textBoxVAT.Text = Convert.ToString(vat, new CultureInfo("en-US"));
-                textBoxBrutto.Text = Convert.ToString(cenabrutto, new CultureInfo("en-US"));
-                invoice.gross = textBoxBrutto.Text;
-                invoice.vat = textBoxVAT.Text;
+                        } else
+                        {
+                            countAmount(number, false);
+                            updateAmounts(false);
+                        }
+
+                    } else
+                    {
+                        if (textBox.Name.Equals("cenaNettoTextBox"))
+                        {
+                            cenaNettoTextBox.Text = textBox.Text.Remove(textBox.Text.Length - 1,1);
+                            cenaNettoTextBox.SelectionStart = cenaNettoTextBox.Text.Length;
+                            cenaNettoTextBox.SelectionLength = 0;
+                        } else
+                        {
+                            textBoxBrutto.Text = textBox.Text.Remove(textBox.Text.Length - 1, 1);
+                            textBoxBrutto.SelectionStart = textBoxBrutto.Text.Length;
+                            textBoxBrutto.SelectionLength = 0;
+                        }
+                    }
+                }
             } else
             {
-                textBoxVAT.Clear();
-                textBoxBrutto.Clear();
-                invoice.gross = "";
-                invoice.vat = "";
+                clearAmounts();
             }
+
+            textBoxBrutto.TextChanged += amount_TextChanged;
+            cenaNettoTextBox.TextChanged += amount_TextChanged;
+        }
+        private void countAmount(decimal value, bool isNet)
+        {
+            decimal net;
+            decimal gross;
+            decimal vat;
+            if (isNet)
+            {
+                net = Decimal.Round(value, 2);
+                vat = net * 0.23m;
+                vat = Decimal.Round(vat, 2);
+                gross = net + vat;
+            } else
+            {
+                gross = Decimal.Round(value, 2);
+                net = gross / 1.23m;
+                net = Decimal.Round(net, 2);
+                vat = gross - net;
+            }
+            invoice.net = Convert.ToString(net, new CultureInfo("pl-PL"));
+            invoice.gross = Convert.ToString(gross, new CultureInfo("pl-PL"));
+            invoice.vat = Convert.ToString(vat, new CultureInfo("pl-PL"));
         }
 
         protected void platnoscComboBox_TextChanged(object sender, EventArgs e)
         {
             invoice.payment_method = platnoscComboBox.Text;
+            if (platnoscComboBox.Text.Equals("gotówka"))
+            {
+                platnoscNumericUpDown1.Value = 0;
+                invoice.payment_deadline = "0";
+            } else
+            {
+                platnoscNumericUpDown1.Value = 7;
+                invoice.payment_deadline = "7";
+            }
         }
 
         protected void platnoscNumericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -267,6 +333,12 @@ namespace Faktura
 
         private void btnSafeInvoice_Click(object sender, EventArgs e)
         {
+            invoice.seller_id = seller.id;
+            invoice.buyer_id = buyer.id;
+            invoice.order_id = order.id;
+            invoice.sell_date = sprzedazDateTimePicker.Text;
+            invoice.payment_deadline = platnoscNumericUpDown1.Value.ToString();
+            invoice.issue_date = wystawdateTimePicker.Text;
             if (invoice.IsCompleted())
             {
                 SQLiteDatabase db = new SQLiteDatabase();
@@ -283,6 +355,9 @@ namespace Faktura
                         order = new Order();
                         domyslny_sprzedawca();
                         nr_faktury();
+                        clearAmounts();
+                        clearBuyer();
+                        OnUpdateInvoicesList(e);
 
                     } else
                     {
@@ -292,7 +367,47 @@ namespace Faktura
                 {
                     MessageBox.Show("Numer faktury już istnieje w bazie. Faktura nie została zapisana.");
                 }
+            } else
+            {
+                MessageBox.Show("Faktura nie kompletna");
             }
         }
+
+        private void updateAmounts(Boolean isNet)
+        {
+            cenaNettoTextBox.Text = invoice.net;
+            textBoxBrutto.Text = invoice.gross;
+            textBoxVAT.Text = invoice.vat;
+            if (isNet)
+            {
+                cenaNettoTextBox.SelectionStart = cenaNettoTextBox.Text.Length;
+                cenaNettoTextBox.SelectionLength = 0;
+            } else
+            {
+                textBoxBrutto.SelectionStart = textBoxBrutto.Text.Length;
+                textBoxBrutto.SelectionLength = 0;
+            }
+        }
+        private void clearAmounts()
+        {
+            cenaNettoTextBox.Clear();
+            textBoxBrutto.Clear();
+            textBoxVAT.Clear();
+            invoice.net = "";
+            invoice.vat = "";
+            invoice.gross = "";
+        }
+
+        private void clearBuyer()
+        {
+            nazwaNabtextBox.Clear();
+            kodNabtextBox.Clear();
+            miejscNabtextBox.Clear();
+            adresNabtextBox.Clear();
+            nipNabtextBox.Clear();
+
+            invoice.buyer_id = 0;
+        }
+        
     }
 }

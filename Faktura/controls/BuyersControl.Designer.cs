@@ -159,6 +159,7 @@ namespace Faktura
             this.textBoxNazwaNabywcy.Name = "textBoxNazwaNabywcy";
             this.textBoxNazwaNabywcy.Size = new System.Drawing.Size(349, 26);
             this.textBoxNazwaNabywcy.TabIndex = 42;
+            textBoxNazwaNabywcy.TextChanged += textBoxNazwaNabywcy_TextChanged;
             // 
             // btnEdytujOdbiorce
             // 

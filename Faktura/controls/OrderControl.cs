@@ -32,6 +32,17 @@ namespace Faktura
                 eh(this, e);
         }
 
+        private void textBoxUslNazwa_TextChanged(object sender, EventArgs e)
+        {
+            if(textBoxUslNazwa.Text.Length > 2)
+            {
+                fillSuggestedDataGrid(textBoxUslNazwa.Text);
+            } else
+            {
+                fillDataGrid();
+            }
+        }
+
         private void fillDataGrid()
         {
             try
@@ -49,7 +60,7 @@ namespace Faktura
                 else
                 {
                     DataTable recipe;
-                    string query = "SELECT id \"Id\", nazwa \"Nazwa\" FROM usluga";
+                    string query = "SELECT id \"Id\", nazwa \"Nazwa\" FROM usluga ORDER BY id DESC";
                     recipe = db.GetDataTable(query);
                     dataGridViewUslugi.Update();
                     dataGridViewUslugi.Refresh();
@@ -63,12 +74,32 @@ namespace Faktura
                 MessageBox.Show(fail.Message);
             }
         }
+        private void fillSuggestedDataGrid(string name)
+        {
+            SQLiteDatabase db = new SQLiteDatabase();
+            string sql = "SELECT COUNT(*) FROM usluga";
+            if (int.Parse(db.ExecuteScalar(sql)) > 20)
+            {
+                DataTable recipe;
+                string query = "SELECT id \"Id\", nazwa \"Nazwa\" FROM usluga WHERE nazwa LIKE \"" + name + "%\" ORDER BY id DESC";
+                recipe = db.GetDataTable(query);
+                dataGridViewUslugi.Update();
+                dataGridViewUslugi.Refresh();
+                dataGridViewUslugi.DataSource = recipe;
+                dataGridViewUslugi.Columns[0].Width = 20;
+                dataGridViewUslugi.Columns[1].Width = 310;
+
+            }
+        }
 
         private void dataGridViewUslugi_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             int wiersz = dataGridViewUslugi.CurrentCell.RowIndex;
             int idUslugi = int.Parse(dataGridViewUslugi[0, wiersz].Value.ToString());
+            textBoxUslNazwa.TextChanged -= textBoxUslNazwa_TextChanged;
             textBoxUslNazwa.Text = dataGridViewUslugi[1, wiersz].Value.ToString();
+            textBoxUslNazwa.TextChanged += textBoxUslNazwa_TextChanged;
             order.id = idUslugi;
             order.name = dataGridViewUslugi[1, wiersz].Value.ToString();
         }
@@ -110,7 +141,9 @@ namespace Faktura
                 if (answer == "ok")
                 {
                     MessageBox.Show("Usługa usunięta z bazy");
+                    textBoxUslNazwa.TextChanged -= textBoxUslNazwa_TextChanged;
                     textBoxUslNazwa.Clear();
+                    textBoxUslNazwa.TextChanged += textBoxUslNazwa_TextChanged;
                     fillDataGrid();
                 }
                 else

@@ -20,7 +20,7 @@ namespace Faktura
             printDocument2.PrintPage += new PrintPageEventHandler(printDocument2_PrintPage);
         }
 
-        private void fillDataGridFaktury()
+        public void fillDataGridFaktury()
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Faktura
                 {
                     //string query = "SELECT * FROM faktura";
                     string query = "SELECT faktura.nr \"NrFV\", nabywca.nazwa \"Nabywca\", usluga.nazwa \"Usługa\", faktura.netto \"Netto\", faktura.vat \"VAT\", faktura.brutto \"Brutto\", faktura.data_wyst \"Wystawiona\" FROM faktura,nabywca,usluga";
-                    query += " WHERE ((nabywca.id = faktura.id_nabywca) AND (usluga.id = faktura.id_usluga))";
+                    query += " WHERE ((nabywca.id = faktura.id_nabywca) AND (usluga.id = faktura.id_usluga)) ORDER BY faktura.id DESC";
                     recipe = db.GetDataTable(query);
                     //dataGridViewFaktury.Update();
                     dataGridViewFaktury.Refresh();

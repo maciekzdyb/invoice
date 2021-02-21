@@ -40,7 +40,9 @@ namespace Faktura
                     {
                         MessageBox.Show("Pozycja dodana");
                         textBoxNazwaNabywcy.Clear();
+                        textBoxNazwaNabywcy.TextChanged -= textBoxNazwaNabywcy_TextChanged;
                         textBoxKodNabywcy.Clear();
+                        textBoxNazwaNabywcy.TextChanged += textBoxNazwaNabywcy_TextChanged;
                         textBoxMisatoNabywcy.Clear();
                         textBoxAdresNabywcy.Clear();
                         textBoxNipNabywcy.Clear();
@@ -64,12 +66,6 @@ namespace Faktura
 
         private void btnDodajDoFaktury_Click(object sender, EventArgs e)
         {
-            Buyer buyer = new Buyer();
-            buyer.name = textBoxNazwaNabywcy.Text;
-            buyer.nip = textBoxNipNabywcy.Text;
-            buyer.postCode = textBoxKodNabywcy.Text;
-            buyer.address = textBoxAdresNabywcy.Text;
-            buyer.city = textBoxMisatoNabywcy.Text;
             OnUpdateText(new BuyerEventArgs(buyer));
         }
 
@@ -90,7 +86,7 @@ namespace Faktura
                 else
                 {
                     DataTable recipe;
-                    string query = "SELECT id \"Id\", nazwa \"Nazwa\", kod \"Kod\", miasto \"Miasto\", adres \"Adres\", nip \"Nip\" FROM nabywca";
+                    string query = "SELECT id \"Id\", nazwa \"Nazwa\", kod \"Kod\", miasto \"Miasto\", adres \"Adres\", nip \"Nip\" FROM nabywca ORDER BY id DESC";
                     recipe = db.GetDataTable(query);
                     dataGridViewOdbiorcy.Update();
                     dataGridViewOdbiorcy.Refresh();
@@ -109,16 +105,43 @@ namespace Faktura
             }
         }
 
+        private void fillSuggestedDataGrid(string name)
+        {
+            SQLiteDatabase db = new SQLiteDatabase();
+            string sql = "SELECT COUNT(*) FROM nabywca";
+            if (int.Parse(db.ExecuteScalar(sql)) > 20)
+            {
+                DataTable recipe;
+                string query = "SELECT * FROM nabywca WHERE nazwa LIKE \"" + name + "%\"";
+                recipe = db.GetDataTable(query);
+                dataGridViewOdbiorcy.Update();
+                dataGridViewOdbiorcy.Refresh();
+                dataGridViewOdbiorcy.DataSource = recipe;
+                dataGridViewOdbiorcy.Columns[0].Width = 20;
+                dataGridViewOdbiorcy.Columns[1].Width = 160;
+                dataGridViewOdbiorcy.Columns[2].Width = 50;
+                dataGridViewOdbiorcy.Columns[3].Width = 50;
+                dataGridViewOdbiorcy.Columns[4].Width = 130;
+                dataGridViewOdbiorcy.Columns[5].Width = 100;
+            }
+        }
+
         private void dataGridViewOdbiorcy_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int wiersz = dataGridViewOdbiorcy.CurrentCell.RowIndex;
             buyer.id = int.Parse(dataGridViewOdbiorcy[0, wiersz].Value.ToString());
+            textBoxNazwaNabywcy.TextChanged -= textBoxNazwaNabywcy_TextChanged;
             textBoxNazwaNabywcy.Text = dataGridViewOdbiorcy[1, wiersz].Value.ToString();
+            textBoxNazwaNabywcy.TextChanged += textBoxNazwaNabywcy_TextChanged;
             buyer.name = dataGridViewOdbiorcy[1, wiersz].Value.ToString();
             textBoxKodNabywcy.Text = dataGridViewOdbiorcy[2, wiersz].Value.ToString();
+            buyer.postCode = dataGridViewOdbiorcy[2, wiersz].Value.ToString();
             textBoxMisatoNabywcy.Text = dataGridViewOdbiorcy[3, wiersz].Value.ToString();
+            buyer.city = dataGridViewOdbiorcy[3, wiersz].Value.ToString();
             textBoxAdresNabywcy.Text = dataGridViewOdbiorcy[4, wiersz].Value.ToString();
+            buyer.address = dataGridViewOdbiorcy[4, wiersz].Value.ToString();
             textBoxNipNabywcy.Text = dataGridViewOdbiorcy[5, wiersz].Value.ToString();
+            buyer.nip = dataGridViewOdbiorcy[5, wiersz].Value.ToString();
         }
 
         protected virtual void OnUpdateText(BuyerEventArgs e)
@@ -141,7 +164,9 @@ namespace Faktura
                     if (delete.Equals("ok"))
                     {
                         MessageBox.Show("Pozycja usunięta");
+                        textBoxNazwaNabywcy.TextChanged -= textBoxNazwaNabywcy_TextChanged;
                         textBoxNazwaNabywcy.Clear();
+                        textBoxNazwaNabywcy.TextChanged += textBoxNazwaNabywcy_TextChanged;
                         textBoxKodNabywcy.Clear();
                         textBoxMisatoNabywcy.Clear();
                         textBoxAdresNabywcy.Clear();
@@ -193,6 +218,17 @@ namespace Faktura
                 MessageBox.Show("Najpierw wybierz odbiorcę");
             }
 
+        }
+
+        private void textBoxNazwaNabywcy_TextChanged(object sender, EventArgs e)
+        {
+            if(textBoxNazwaNabywcy.Text.Length > 2)
+            {
+                fillSuggestedDataGrid(textBoxNazwaNabywcy.Text);
+            } else
+            {
+                fillDataGrid();
+            }
         }
     }   
 }

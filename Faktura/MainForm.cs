@@ -14,6 +14,7 @@ namespace Faktura
             buyersControl1.UpdateText += new EventHandler<BuyerEventArgs>(buyersControl1_UpdateText);
             orderControl1.UpdateText += new EventHandler<OrderEventArgs>(orderControl1_UpdateText);
             invoicesListControl1.UpdateText += new EventHandler<InvoiceEventArgs>(invoicesListControl1_UpdateText);
+            invoiceControl1.UpdateInvoicesList += new EventHandler(invoiceControl1_UpdateInvoicesList);
             invoiceControl1.ShowBuyers += new EventHandler(invoiceControl1_ShowBuyers);
             invoiceControl1.ShowOrders += new EventHandler(orderControl1_ShowOrders);
         }
@@ -44,6 +45,11 @@ namespace Faktura
             buyer.postCode = e.postCode;
             invoiceControl1.updateInvoiceBuyer = buyer;
             showUserControl(invoiceControl1);
+        }
+
+        void invoiceControl1_UpdateInvoicesList(object sender, EventArgs e)
+        {
+            invoicesListControl1.fillDataGridFaktury();
         }
 
         void orderControl1_UpdateText(object sender, OrderEventArgs e)

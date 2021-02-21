@@ -75,6 +75,7 @@ namespace Faktura
             this.textBoxUslNazwa.Name = "textBoxUslNazwa";
             this.textBoxUslNazwa.Size = new System.Drawing.Size(274, 20);
             this.textBoxUslNazwa.TabIndex = 14;
+            textBoxUslNazwa.TextChanged += new EventHandler(textBoxUslNazwa_TextChanged); 
             // 
             // label28
             // 
