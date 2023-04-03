@@ -65,8 +65,11 @@ namespace Faktura
                     dataGridViewUslugi.Update();
                     dataGridViewUslugi.Refresh();
                     dataGridViewUslugi.DataSource = recipe;
-                    dataGridViewUslugi.Columns[0].Width = 20;
-                    dataGridViewUslugi.Columns[1].Width = 310;
+                    dataGridViewUslugi.Columns[0].Visible = false;
+                    
+                    //dataGridViewUslugi.Columns[0].Width = 20;
+                    dataGridViewUslugi.Columns[1].Width = 875;
+                    //dataGridViewUslugi.Columns[1].Resizable = DataGridViewTriState.True;
                 }
             }
             catch (Exception fail)
@@ -90,6 +93,14 @@ namespace Faktura
                 dataGridViewUslugi.Columns[1].Width = 310;
 
             }
+        }
+
+        private void dataGridViewUslugi_CellContentMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int row = dataGridViewUslugi.CurrentCell.RowIndex;
+            int col = dataGridViewUslugi.CurrentCell.ColumnIndex;
+            dataGridViewUslugi.CurrentCell.ToolTipText = dataGridViewUslugi[col,row].Value.ToString();
+            
         }
 
         private void dataGridViewUslugi_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -137,18 +148,25 @@ namespace Faktura
             if(order.id >0)
             {
                 SQLiteDatabase db = new SQLiteDatabase();
-                string answer = db.deleteOrderById(order.id.ToString());
-                if (answer == "ok")
+                if (db.invoiceWithOrderExist(order.id))
                 {
-                    MessageBox.Show("Usługa usunięta z bazy");
-                    textBoxUslNazwa.TextChanged -= textBoxUslNazwa_TextChanged;
-                    textBoxUslNazwa.Clear();
-                    textBoxUslNazwa.TextChanged += textBoxUslNazwa_TextChanged;
-                    fillDataGrid();
+                    MessageBox.Show("Usuń najpierw fakturę wykorzystującą usługę! Operacja przerwana");
                 }
                 else
                 {
-                    MessageBox.Show(answer);
+                    string answer = db.deleteOrderById(order.id.ToString());
+                    if (answer == "ok")
+                    {
+                        MessageBox.Show("Usługa usunięta z bazy");
+                        textBoxUslNazwa.TextChanged -= textBoxUslNazwa_TextChanged;
+                        textBoxUslNazwa.Clear();
+                        textBoxUslNazwa.TextChanged += textBoxUslNazwa_TextChanged;
+                        fillDataGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show(answer);
+                    }
                 }
             }
             else

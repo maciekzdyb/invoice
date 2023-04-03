@@ -72,6 +72,7 @@ namespace Faktura
             invoice.order_id = e.order_id;
             invoice.payment_method = e.payment_method;
             invoice.vat = e.vat;
+            invoice.net = e.net;
             invoiceControl1.updateInvoice = invoice;
             invoiceControl1.updateInvoiceBuyer = buyer;
             invoiceControl1.updateOrder = order;

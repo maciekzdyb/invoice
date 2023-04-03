@@ -24,6 +24,7 @@ namespace Faktura
         public int id { get; set; }
         public string name { get; set; }
 
+
         private string parseDate(string date)
         {
             char comma;
@@ -45,10 +46,33 @@ namespace Faktura
 
         public string parseName(string date)
         {
+            string shortcut = ":mc";
             if (name.Contains(":mc"))
             {
+                int pos = name.IndexOf(":mc");
+                char c = name[pos + 2];
+                string offsetS ="";
+                if (c.Equals('+') || c.Equals('-')) 
+                {
+                    shortcut += c;
+                    char firstD = name[pos + 3];
+                    if (char.IsDigit(firstD))
+                    {
+                        offsetS += firstD;
+                        shortcut += firstD;
+                    }
+                    
+                    char secondD = name[pos + 4];
+                    if (char.IsDigit(secondD))
+                    {
+                        offsetS += secondD;
+                        shortcut += secondD;
+                    }
+                    int offset = int.Parse(offsetS);
+                    //string monthName = parseDate(date, c, offset);
+                }
                 string monthName = parseDate(date);
-                return name.Replace(":mc", monthName);
+                return name.Replace(shortcut, monthName);
             }
             return name;
         }

@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Drawing.Printing;
 using System.Globalization;
+using System.Drawing;
 
 namespace Faktura
 {
@@ -57,6 +58,13 @@ namespace Faktura
             {
                 order = value;
                 uslugaTextBox.Text = order.name;
+                if(uslugaTextBox.Text.Length > 46)
+                {
+                    //  Size size = TextRenderer.MeasureText(uslugaTextBox.Text, uslugaTextBox.Font);
+                    //uslugaTextBox.Width = size.Width;
+                    //uslugaTextBox.Height = 40;
+                }
+                
             }
         }
 
@@ -70,7 +78,11 @@ namespace Faktura
                 invoice.no = oldInv.no;
                 invoice.seller_id = oldInv.seller_id;
                 invoice.issue_date = oldInv.issue_date;
+                invoice.issueDate = oldInv.issueDate;
                 invoice.sell_date = oldInv.sell_date;
+                invoice.sellDate = oldInv.sellDate;
+                cenaNettoTextBox.Text = invoice.net;
+                //invoice.net = oldInv.net;
                 //TODO
             }
         }
@@ -83,9 +95,11 @@ namespace Faktura
             }
             else
             {
-                invoice.issue_date = wystawdateTimePicker.Text;
-                invoice.sell_date = sprzedazDateTimePicker.Text;
-                invoice.payment_deadline = platnoscDateTimePicker.Text;
+                invoice.issue_date = wystawdateTimePicker.Value.ToString("dd.MM.yyyy");
+                invoice.issueDate = wystawdateTimePicker.Value;
+                invoice.sell_date = sprzedazDateTimePicker.Value.ToString("dd.MM.yyyy");
+                invoice.sellDate = sprzedazDateTimePicker.Value;
+                invoice.payment_deadline = platnoscNumericUpDown1.Value.ToString();
                 invoice.net = cenaNettoTextBox.Text;
                 return true;
             }
@@ -104,25 +118,26 @@ namespace Faktura
                 SQLiteDatabase db = new SQLiteDatabase();
                 DataTable tablica;
                 //query += "from sprzedawca;";
-                string query = "SELECT id \"Id\", nazwa \"Nazwa\", kod \"Kod\", miasto \"Miasto\", adres \"Adres\", nip \"Nip\", rachunek \"Rachunek\", podpis \"Podpis\" FROM sprzedawca WHERE id = 9;";
+                string query = "SELECT * FROM sprzedawca WHERE domyslny = 1";
+                //string query = "SELECT * FROM sprzedawca WHERE id =7";
                 tablica = db.GetDataTable(query);
 
                 foreach (DataRow r in tablica.Rows)
                 {
-                    seller.id = int.Parse(r["Id"].ToString());
-                    nazwaSprzedtextBox.Text = r["Nazwa"].ToString();
-                    seller.name = r["Nazwa"].ToString(); 
-                    kodSprzedtextBox.Text = r["Kod"].ToString();
-                    seller.postCode = r["Kod"].ToString();
-                    miejscSprzedtextBox.Text = r["Miasto"].ToString();
-                    seller.city = r["Miasto"].ToString();
-                    adresSprzedtextBox.Text = r["Adres"].ToString();
-                    seller.address = r["Adres"].ToString();
-                    nipSprzedtextBox.Text = r["Nip"].ToString();
-                    seller.nip = r["Nip"].ToString();
-                    rachunekSprzedBox.Text = r["Rachunek"].ToString();
-                    seller.rachunek = r["Rachunek"].ToString();
-                    seller.signature = r["Podpis"].ToString();
+                    seller.id = int.Parse(r["id"].ToString());
+                    nazwaSprzedtextBox.Text = r["nazwa"].ToString();
+                    seller.name = r["nazwa"].ToString(); 
+                    kodSprzedtextBox.Text = r["kod"].ToString();
+                    seller.postCode = r["kod"].ToString();
+                    miejscSprzedtextBox.Text = r["miasto"].ToString();
+                    seller.city = r["miasto"].ToString();
+                    adresSprzedtextBox.Text = r["adres"].ToString();
+                    seller.address = r["adres"].ToString();
+                    nipSprzedtextBox.Text = r["nip"].ToString();
+                    seller.nip = r["nip"].ToString();
+                    rachunekSprzedBox.Text = r["rachunek"].ToString();
+                    seller.rachunek = r["rachunek"].ToString();
+                    seller.signature = r["podpis"].ToString();
                 }
                 invoice.seller_id = seller.id;
             }
@@ -186,8 +201,10 @@ namespace Faktura
 
         private void printBtn_Click(object sender, EventArgs e)
         {
+            
             if (validate())
             {
+                printDocument1.PrinterSettings.Copies = 2;
                 printPreviewDialog1.Document = printDocument1;
                 printPreviewDialog1.ShowDialog();
             }
@@ -336,9 +353,11 @@ namespace Faktura
             invoice.seller_id = seller.id;
             invoice.buyer_id = buyer.id;
             invoice.order_id = order.id;
-            invoice.sell_date = sprzedazDateTimePicker.Text;
+            invoice.sell_date = sprzedazDateTimePicker.Value.ToString("dd.MM.yyyy");
+            invoice.sellDate = sprzedazDateTimePicker.Value;
             invoice.payment_deadline = platnoscNumericUpDown1.Value.ToString();
-            invoice.issue_date = wystawdateTimePicker.Text;
+            invoice.issue_date = wystawdateTimePicker.Value.ToString("dd.MM.yyyy");
+            invoice.issueDate = wystawdateTimePicker.Value;
             if (invoice.IsCompleted())
             {
                 SQLiteDatabase db = new SQLiteDatabase();
@@ -408,6 +427,5 @@ namespace Faktura
 
             invoice.buyer_id = 0;
         }
-        
     }
 }

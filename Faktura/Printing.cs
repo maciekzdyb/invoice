@@ -47,8 +47,8 @@ namespace Faktura
             rysujBox("Nr " + invoice.no, 330, 82, 180, 40, arial17, stringFormat, "w", e);
             rysujBox("Oryginał/Kopia", 340, 110, 160, 20, Arial9, stringFormat, "w", e);
 
-            rysujBox("Data wystawienia: " + invoice.issue_date, 570, 50, 180, 20, Arial9, stringFormat, "w", e);
-            rysujBox("Data sprzedaży: " + invoice.sell_date, 575, 70, 180, 20, Arial9, stringFormat, "w", e);
+            rysujBox("Data wystawienia: " + invoice.issue_date + " r.", 570, 50, 180, 20, Arial9, stringFormat, "w", e);
+            rysujBox("Data sprzedaży: " + invoice.sell_date + " r.", 575, 70, 180, 20, Arial9, stringFormat, "w", e);
   
             //stringSize = e.Graphics.MeasureString(nr_faktury, arial17);
             //e.Graphics.DrawString(nr_faktury, arial17, solidBrush, new PointF(345, 80));
@@ -64,11 +64,16 @@ namespace Faktura
             string nabywca = "Nabywca";
             e.Graphics.DrawString(nabywca, arial12b, solidBrush, new PointF(440, 200));
             e.Graphics.DrawLine(myPen, 440, 200 + stringSize.Height, 440 + 300, 200 + stringSize.Height);
-            rysujBox(buyer.name, 440, 240, 310, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox(buyer.address, 440, 255, 310, 15, Arial9, stringFormatLeft, "w", e);
-            rysujBox(buyer.postCode, 440, 270, 40, 15, Arial9, stringFormat, "w", e);
-            rysujBox(buyer.city, 480, 270, 60, 15, Arial9, stringFormat, "w", e);
-            rysujBox("NIP: " + buyer.nip, 440, 285, 110, 15, Arial9, stringFormatLeft, "w", e);
+            int doubleSize = 0;
+            if(buyer.name.Length > 50)
+            {
+                doubleSize = 15;
+            }
+            rysujBox(buyer.name, 440, 240, 330, 15+doubleSize, Arial9, stringFormatLeft, "w", e);
+            rysujBox(buyer.address, 440, 255+doubleSize, 310, 15, Arial9, stringFormatLeft, "w", e);
+            rysujBox(buyer.postCode, 440, 270+doubleSize, 40, 15, Arial9, stringFormat, "w", e);
+            rysujBox(buyer.city, 480, 270+doubleSize, 60, 15, Arial9, stringFormat, "w", e);
+            rysujBox("NIP: " + buyer.nip, 440, 285+doubleSize, 110, 15, Arial9, stringFormatLeft, "w", e);
 
             rysujBox("Lp.", 60, 350, 20, 30, Arial9, stringFormat, "b", e);
             rysujBox("Nazwa towaru lub usługi", 80, 350, 330, 30, Arial9, stringFormat, "b", e);
@@ -146,8 +151,9 @@ namespace Faktura
 
             rysujBox("Forma płatności: " + invoice.payment_method, 60, 550 + y, 160, 15, Arial9, stringFormatLeft, "w", e);
 
-            string[] sellTab = invoice.sell_date.Split('.');
-            DateTime sellDate = new DateTime(int.Parse(sellTab[2]), int.Parse(sellTab[1]), int.Parse(sellTab[0]));
+            //string[] sellTab = invoice.sell_date.Split('.');
+            //DateTime sellDate = new DateTime(int.Parse(sellTab[2]), int.Parse(sellTab[1]), int.Parse(sellTab[0]));
+            DateTime sellDate = invoice.sellDate;
             String days = "";
             String deadlineStr = "";
             if (invoice.payment_deadline.Contains("."))

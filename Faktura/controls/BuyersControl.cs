@@ -15,7 +15,6 @@ namespace Faktura
             InitializeComponent();
             fillDataGrid();
             buyer = new Buyer();
-
         }
 
         private void btnDodajOdbiorce_Click(object sender, EventArgs e)
@@ -91,11 +90,11 @@ namespace Faktura
                     dataGridViewOdbiorcy.Update();
                     dataGridViewOdbiorcy.Refresh();
                     dataGridViewOdbiorcy.DataSource = recipe;
-                    dataGridViewOdbiorcy.Columns[0].Width = 20;
-                    dataGridViewOdbiorcy.Columns[1].Width = 160;
+                    dataGridViewOdbiorcy.Columns[0].Visible = false;
+                    dataGridViewOdbiorcy.Columns[1].Width = 180;
                     dataGridViewOdbiorcy.Columns[2].Width = 50;
                     dataGridViewOdbiorcy.Columns[3].Width = 50;
-                    dataGridViewOdbiorcy.Columns[4].Width = 130;
+                    dataGridViewOdbiorcy.Columns[4].Width = 150;
                     dataGridViewOdbiorcy.Columns[5].Width = 100;
                 }
             }
@@ -118,10 +117,10 @@ namespace Faktura
                 dataGridViewOdbiorcy.Refresh();
                 dataGridViewOdbiorcy.DataSource = recipe;
                 dataGridViewOdbiorcy.Columns[0].Width = 20;
-                dataGridViewOdbiorcy.Columns[1].Width = 160;
+                dataGridViewOdbiorcy.Columns[1].Width = 250;
                 dataGridViewOdbiorcy.Columns[2].Width = 50;
-                dataGridViewOdbiorcy.Columns[3].Width = 50;
-                dataGridViewOdbiorcy.Columns[4].Width = 130;
+                dataGridViewOdbiorcy.Columns[3].Width = 150;
+                dataGridViewOdbiorcy.Columns[4].Width = 200;
                 dataGridViewOdbiorcy.Columns[5].Width = 100;
             }
         }
@@ -143,6 +142,15 @@ namespace Faktura
             textBoxNipNabywcy.Text = dataGridViewOdbiorcy[5, wiersz].Value.ToString();
             buyer.nip = dataGridViewOdbiorcy[5, wiersz].Value.ToString();
         }
+
+//        public void dataGridViewOdbiorcy_KeyPress(object sender, KeyPressEventArgs e)
+//        {
+//            if (e.KeyChar == (char)Keys.F1)
+//            {
+//                var selectedCell = dataGridViewOdbiorcy.SelectedCells[0];
+//        
+//           }
+//        }
 
         protected virtual void OnUpdateText(BuyerEventArgs e)
         {
@@ -230,5 +238,20 @@ namespace Faktura
                 fillDataGrid();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            clearTextBoxes();
+        }
+
+        private void clearTextBoxes()
+        {
+            textBoxNazwaNabywcy.Clear();
+            textBoxAdresNabywcy.Clear();
+            textBoxKodNabywcy.Clear();
+            textBoxMisatoNabywcy.Clear();
+            textBoxNipNabywcy.Clear();
+        }
+
     }   
 }

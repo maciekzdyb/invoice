@@ -51,12 +51,12 @@ namespace Faktura
                     dataGridViewFaktury.Refresh();
                     dataGridViewFaktury.DataSource = recipe;
 
-                    dataGridViewFaktury.Columns[0].Width = 60;
-                    dataGridViewFaktury.Columns[1].Width = 200;
-                    dataGridViewFaktury.Columns[2].Width = 80;
-                    dataGridViewFaktury.Columns[3].Width = 50;
-                    dataGridViewFaktury.Columns[4].Width = 50;
-                    dataGridViewFaktury.Columns[5].Width = 60;
+                    dataGridViewFaktury.Columns[0].Visible = false;
+                    dataGridViewFaktury.Columns[1].Width = 294;
+                    dataGridViewFaktury.Columns[2].Width = 310;
+                    dataGridViewFaktury.Columns[3].Width = 60;
+                    dataGridViewFaktury.Columns[4].Width = 60;
+                    dataGridViewFaktury.Columns[5].Width = 65;
                     dataGridViewFaktury.Columns[6].Width = 70;
                 }
             }
@@ -72,6 +72,8 @@ namespace Faktura
             string invoiceNo = dataGridViewFaktury[0, row].Value.ToString();
             SQLiteDatabase db = new SQLiteDatabase();
             invoice = db.getInvoice(invoiceNo);
+            invoice.issueDate = invoice.convert2DateTime(invoice.issue_date);
+            invoice.sellDate = invoice.convert2DateTime(invoice.sell_date);
             textBoxInvNo.Text = invoice.no;
         }
 
@@ -83,9 +85,6 @@ namespace Faktura
                 buyer = db.getBuyer(invoice.buyer_id);
                 seller = db.getSeller(invoice.seller_id);
                 order = db.getOrder(invoice.order_id);
-                
-                printPreviewDialog2.PrintPreviewControl.Zoom = 0.5;
-                printPreviewDialog2.PrintPreviewControl.Size = new Size(800, 600); 
                 printPreviewDialog2.Document = printDocument2;
                 printPreviewDialog2.ShowDialog();
 

@@ -84,12 +84,6 @@
     </Compile>
     <Compile Include="EventArgs\OrderEventArgs.cs" />
     <Compile Include="Printing.cs" />
-    <Compile Include="PrintingControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PrintingControl.Designer.cs">
-      <DependentUpon>PrintingControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="dto\AssemblyInfo.cs" />
     <Compile Include="controls\InvoiceControl.cs">
@@ -119,9 +113,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PrintingControl.resx">
-      <DependentUpon>PrintingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

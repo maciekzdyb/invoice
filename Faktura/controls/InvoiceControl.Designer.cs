@@ -73,7 +73,13 @@
             this.textBoxVAT = new System.Windows.Forms.TextBox();
             this.platnoscNumericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.platnoscNumericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSafeInvoice
@@ -114,6 +120,7 @@
             // 
             // wystawdateTimePicker
             // 
+            this.wystawdateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.wystawdateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.wystawdateTimePicker.Location = new System.Drawing.Point(723, 37);
             this.wystawdateTimePicker.Name = "wystawdateTimePicker";
@@ -131,6 +138,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(629, 43);
             this.label2.Name = "label2";
@@ -239,7 +247,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(67, 378);
+            this.label13.Location = new System.Drawing.Point(67, 398);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(59, 13);
             this.label13.TabIndex = 68;
@@ -256,7 +264,7 @@
             // 
             // cenaNettoTextBox
             // 
-            this.cenaNettoTextBox.Location = new System.Drawing.Point(132, 375);
+            this.cenaNettoTextBox.Location = new System.Drawing.Point(132, 395);
             this.cenaNettoTextBox.Name = "cenaNettoTextBox";
             this.cenaNettoTextBox.Size = new System.Drawing.Size(96, 20);
             this.cenaNettoTextBox.TabIndex = 69;
@@ -327,9 +335,10 @@
             // uslugaTextBox
             // 
             this.uslugaTextBox.Location = new System.Drawing.Point(132, 352);
+            this.uslugaTextBox.Multiline = true;
             this.uslugaTextBox.Name = "uslugaTextBox";
             this.uslugaTextBox.ReadOnly = true;
-            this.uslugaTextBox.Size = new System.Drawing.Size(250, 20);
+            this.uslugaTextBox.Size = new System.Drawing.Size(250, 40);
             this.uslugaTextBox.TabIndex = 66;
             this.uslugaTextBox.Click += new System.EventHandler(this.uslugaTextBox_Click);
             // 
@@ -397,7 +406,7 @@
             // 
             this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
             this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(800, 600);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(800, 1000);
             this.printPreviewDialog1.Enabled = true;
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
@@ -405,16 +414,16 @@
             // 
             // textBoxBrutto
             // 
-            this.textBoxBrutto.Location = new System.Drawing.Point(132, 398);
+            this.textBoxBrutto.Location = new System.Drawing.Point(132, 418);
             this.textBoxBrutto.Name = "textBoxBrutto";
             this.textBoxBrutto.Size = new System.Drawing.Size(96, 20);
             this.textBoxBrutto.TabIndex = 77;
-            textBoxBrutto.TextChanged += new System.EventHandler(amount_TextChanged);
+            this.textBoxBrutto.TextChanged += new System.EventHandler(this.amount_TextChanged);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(63, 402);
+            this.label17.Location = new System.Drawing.Point(63, 422);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(62, 13);
             this.label17.TabIndex = 78;
@@ -423,7 +432,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(93, 424);
+            this.label18.Location = new System.Drawing.Point(93, 444);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(28, 13);
             this.label18.TabIndex = 79;
@@ -431,7 +440,7 @@
             // 
             // textBoxVAT
             // 
-            this.textBoxVAT.Location = new System.Drawing.Point(132, 422);
+            this.textBoxVAT.Location = new System.Drawing.Point(132, 442);
             this.textBoxVAT.Name = "textBoxVAT";
             this.textBoxVAT.ReadOnly = true;
             this.textBoxVAT.Size = new System.Drawing.Size(96, 20);
@@ -440,7 +449,7 @@
             // platnoscNumericUpDown1
             // 
             this.platnoscNumericUpDown1.Location = new System.Drawing.Point(666, 375);
-            this.platnoscNumericUpDown1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.platnoscNumericUpDown1.Margin = new System.Windows.Forms.Padding(2);
             this.platnoscNumericUpDown1.Name = "platnoscNumericUpDown1";
             this.platnoscNumericUpDown1.Size = new System.Drawing.Size(43, 20);
             this.platnoscNumericUpDown1.TabIndex = 81;
@@ -455,10 +464,67 @@
             this.label19.TabIndex = 82;
             this.label19.Text = "dni";
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(399, 355);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(20, 13);
+            this.label20.TabIndex = 83;
+            this.label20.Text = "j.m";
+            this.label20.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(392, 371);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(34, 20);
+            this.textBox1.TabIndex = 84;
+            this.textBox1.Visible = false;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(437, 355);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(23, 13);
+            this.label21.TabIndex = 85;
+            this.label21.Text = "szt.";
+            this.label21.Visible = false;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(440, 371);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(43, 20);
+            this.numericUpDown1.TabIndex = 86;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Visible = false;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(345, 440);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 87;
+            this.comboBox1.Visible = false;
+            // 
             // InvoiceControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoSize = true;
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.platnoscNumericUpDown1);
             this.Controls.Add(this.textBoxVAT);
@@ -504,6 +570,7 @@
             this.Name = "InvoiceControl";
             this.Size = new System.Drawing.Size(884, 537);
             ((System.ComponentModel.ISupportInitialize)(this.platnoscNumericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -555,5 +622,10 @@
         private System.Windows.Forms.TextBox textBoxVAT;
         private System.Windows.Forms.NumericUpDown platnoscNumericUpDown1;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

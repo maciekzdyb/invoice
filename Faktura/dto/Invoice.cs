@@ -11,7 +11,9 @@ namespace Faktura
         public int buyer_id { get; set; }
         public int order_id { get; set; }
         public string issue_date { get; set; }
+        public DateTime issueDate { get; set; }
         public string sell_date { get; set; }
+        public DateTime sellDate { get; set; }
         public string payment_method { get; set; }
         public string payment_deadline { get; set; }
         public string net { get; set; }
@@ -39,6 +41,11 @@ namespace Faktura
         {
             Double ddays = Convert.ToDouble(days);
             return date1.AddDays(ddays);
+        }
+
+        public DateTime convert2DateTime(string dateStr)
+        {
+            return DateTime.ParseExact(dateStr, "dd.MM.yyyy", null);
         }
     }
 }

@@ -10,8 +10,12 @@ namespace Faktura
         String dbConnection;
         public SQLiteDatabase()
         {
-              //dbConnection = "Data Source=c:\\sqlite\\db\\faktura.db";
-            dbConnection = "Data Source=faktura.db";
+            dbConnection = "Data Source=c:\\sqlite\\db\\itmz.db";
+            //dbConnection = "Data Source=c:\\sqlite\\db\\faktura.db";
+            //dbConnection = "Data Source=c:\\sqlite\\db\\faktura_test.db";
+            //dbConnection = "Data Source=faktura.db";
+            //dbConnection = "Data Source=c:\\sqlite\\kancelaria\\faktura.db";
+            //dbConnection = "Data Source = F:\\faktura\\faktura.db";
         }
 
         public SQLiteDatabase(String inputFile)
@@ -157,7 +161,7 @@ namespace Faktura
                 seller.address = dr["adres"].ToString();
                 seller.nip = dr["nip"].ToString();
                 seller.rachunek = dr["rachunek"].ToString();
-                seller.domyslny = bool.Parse(dr["domyslny"].ToString());
+                seller.domyslny = int.Parse(dr["domyslny"].ToString());
                 seller.signature = dr["podpis"].ToString();
             }
             return seller;
@@ -202,6 +206,19 @@ namespace Faktura
         internal string deleteOrderById( string id)
         {
             return Delete("usluga", "id=" + id);   
+        }
+
+        internal bool invoiceWithOrderExist(int orderId)
+        {
+            string query = string.Format("SELECT COUNT(*) FROM faktura WHERE id_usluga ={0}", orderId);
+            int count =0;
+            if (Int32.TryParse(ExecuteScalar(query), out count)){
+                if(count >0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public String Delete(String tableName, String where)

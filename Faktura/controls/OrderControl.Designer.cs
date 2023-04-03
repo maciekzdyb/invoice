@@ -42,27 +42,27 @@ namespace Faktura
             // 
             // btnUslDodajDoFV
             // 
-            this.btnUslDodajDoFV.Location = new System.Drawing.Point(594, 64);
+            this.btnUslDodajDoFV.Location = new System.Drawing.Point(784, 492);
             this.btnUslDodajDoFV.Name = "btnUslDodajDoFV";
             this.btnUslDodajDoFV.Size = new System.Drawing.Size(97, 23);
             this.btnUslDodajDoFV.TabIndex = 17;
             this.btnUslDodajDoFV.Text = "Dodaj do faktury";
             this.btnUslDodajDoFV.UseVisualStyleBackColor = true;
-            this.btnUslDodajDoFV.Click += new EventHandler(this.btnUslDodajDoFV_Click);
+            this.btnUslDodajDoFV.Click += new System.EventHandler(this.btnUslDodajDoFV_Click);
             // 
             // btnUslDel
             // 
-            this.btnUslDel.Location = new System.Drawing.Point(771, 93);
+            this.btnUslDel.Location = new System.Drawing.Point(499, 492);
             this.btnUslDel.Name = "btnUslDel";
             this.btnUslDel.Size = new System.Drawing.Size(97, 23);
             this.btnUslDel.TabIndex = 16;
             this.btnUslDel.Text = "Usuń";
             this.btnUslDel.UseVisualStyleBackColor = true;
-            btnUslDel.Click += new EventHandler(btnUslDel_Click);
+            this.btnUslDel.Click += new System.EventHandler(this.btnUslDel_Click);
             // 
             // btnUslRefresh
             // 
-            this.btnUslRefresh.Location = new System.Drawing.Point(771, 143);
+            this.btnUslRefresh.Location = new System.Drawing.Point(643, 492);
             this.btnUslRefresh.Name = "btnUslRefresh";
             this.btnUslRefresh.Size = new System.Drawing.Size(94, 23);
             this.btnUslRefresh.TabIndex = 15;
@@ -71,16 +71,19 @@ namespace Faktura
             // 
             // textBoxUslNazwa
             // 
-            this.textBoxUslNazwa.Location = new System.Drawing.Point(594, 24);
+            this.textBoxUslNazwa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxUslNazwa.Location = new System.Drawing.Point(91, 494);
+            this.textBoxUslNazwa.MinimumSize = new System.Drawing.Size(274, 40);
+            this.textBoxUslNazwa.Multiline = true;
             this.textBoxUslNazwa.Name = "textBoxUslNazwa";
-            this.textBoxUslNazwa.Size = new System.Drawing.Size(274, 20);
+            this.textBoxUslNazwa.Size = new System.Drawing.Size(274, 40);
             this.textBoxUslNazwa.TabIndex = 14;
-            textBoxUslNazwa.TextChanged += new EventHandler(textBoxUslNazwa_TextChanged); 
+            this.textBoxUslNazwa.TextChanged += new System.EventHandler(this.textBoxUslNazwa_TextChanged);
             // 
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(515, 27);
+            this.label28.Location = new System.Drawing.Point(3, 497);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(73, 13);
             this.label28.TabIndex = 13;
@@ -88,7 +91,9 @@ namespace Faktura
             // 
             // btnUslugaDodaj
             // 
-            this.btnUslugaDodaj.Location = new System.Drawing.Point(771, 64);
+            this.btnUslugaDodaj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUslugaDodaj.AutoSize = true;
+            this.btnUslugaDodaj.Location = new System.Drawing.Point(396, 492);
             this.btnUslugaDodaj.Name = "btnUslugaDodaj";
             this.btnUslugaDodaj.Size = new System.Drawing.Size(97, 23);
             this.btnUslugaDodaj.TabIndex = 12;
@@ -98,24 +103,32 @@ namespace Faktura
             // 
             // dataGridViewUslugi
             // 
-            this.dataGridViewUslugi.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewUslugi.AllowUserToAddRows = false;
+            this.dataGridViewUslugi.AllowUserToDeleteRows = false;
+            this.dataGridViewUslugi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewUslugi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewUslugi.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewUslugi.Name = "dataGridViewUslugi";
-            this.dataGridViewUslugi.Size = new System.Drawing.Size(449, 531);
+            this.dataGridViewUslugi.ReadOnly = true;
+            this.dataGridViewUslugi.RowHeadersVisible = false;
+            this.dataGridViewUslugi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewUslugi.Size = new System.Drawing.Size(878, 483);
             this.dataGridViewUslugi.TabIndex = 11;
             this.dataGridViewUslugi.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewUslugi_CellContentClick);
+            this.dataGridViewUslugi.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewUslugi_CellContentMouseMove);
             // 
             // OrderControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.Controls.Add(this.btnUslugaDodaj);
             this.Controls.Add(this.btnUslDodajDoFV);
             this.Controls.Add(this.btnUslDel);
             this.Controls.Add(this.btnUslRefresh);
             this.Controls.Add(this.textBoxUslNazwa);
             this.Controls.Add(this.label28);
-            this.Controls.Add(this.btnUslugaDodaj);
             this.Controls.Add(this.dataGridViewUslugi);
             this.Name = "OrderControl";
             this.Size = new System.Drawing.Size(884, 537);

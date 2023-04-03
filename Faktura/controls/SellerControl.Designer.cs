@@ -41,131 +41,142 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.textBoxSprzedNaz = new System.Windows.Forms.TextBox();
+            this.dataGridViewSprzedawca = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSprzedawca)).BeginInit();
             this.SuspendLayout();
             // 
             // btnUaktualnijSprzed
             // 
-            this.btnUaktualnijSprzed.Location = new System.Drawing.Point(699, 574);
-            this.btnUaktualnijSprzed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnUaktualnijSprzed.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnUaktualnijSprzed.Location = new System.Drawing.Point(566, 382);
             this.btnUaktualnijSprzed.Name = "btnUaktualnijSprzed";
-            this.btnUaktualnijSprzed.Size = new System.Drawing.Size(112, 35);
+            this.btnUaktualnijSprzed.Size = new System.Drawing.Size(75, 23);
             this.btnUaktualnijSprzed.TabIndex = 25;
-            this.btnUaktualnijSprzed.Text = "Uaktualnij";
+            this.btnUaktualnijSprzed.Text = "Dodaj";
             this.btnUaktualnijSprzed.UseVisualStyleBackColor = true;
             this.btnUaktualnijSprzed.Click += new System.EventHandler(this.btnUaktualnijSprzed_Click);
             // 
             // textBoxSprzedNrRach
             // 
-            this.textBoxSprzedNrRach.Location = new System.Drawing.Point(495, 455);
-            this.textBoxSprzedNrRach.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSprzedNrRach.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxSprzedNrRach.Location = new System.Drawing.Point(101, 389);
             this.textBoxSprzedNrRach.Name = "textBoxSprzedNrRach";
-            this.textBoxSprzedNrRach.Size = new System.Drawing.Size(348, 26);
+            this.textBoxSprzedNrRach.Size = new System.Drawing.Size(233, 20);
             this.textBoxSprzedNrRach.TabIndex = 24;
             // 
             // textBoxSprzedNip
             // 
-            this.textBoxSprzedNip.Location = new System.Drawing.Point(495, 398);
-            this.textBoxSprzedNip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSprzedNip.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxSprzedNip.Location = new System.Drawing.Point(510, 349);
             this.textBoxSprzedNip.Name = "textBoxSprzedNip";
-            this.textBoxSprzedNip.Size = new System.Drawing.Size(194, 26);
+            this.textBoxSprzedNip.Size = new System.Drawing.Size(131, 20);
             this.textBoxSprzedNip.TabIndex = 23;
             // 
             // textBoxSprzedAdres
             // 
-            this.textBoxSprzedAdres.Location = new System.Drawing.Point(495, 352);
-            this.textBoxSprzedAdres.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSprzedAdres.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxSprzedAdres.Location = new System.Drawing.Point(49, 349);
             this.textBoxSprzedAdres.Name = "textBoxSprzedAdres";
-            this.textBoxSprzedAdres.Size = new System.Drawing.Size(426, 26);
+            this.textBoxSprzedAdres.Size = new System.Drawing.Size(285, 20);
             this.textBoxSprzedAdres.TabIndex = 22;
             // 
             // textBoxSprzedMiasto
             // 
-            this.textBoxSprzedMiasto.Location = new System.Drawing.Point(496, 312);
-            this.textBoxSprzedMiasto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSprzedMiasto.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxSprzedMiasto.Location = new System.Drawing.Point(541, 312);
             this.textBoxSprzedMiasto.Name = "textBoxSprzedMiasto";
-            this.textBoxSprzedMiasto.Size = new System.Drawing.Size(148, 26);
+            this.textBoxSprzedMiasto.Size = new System.Drawing.Size(100, 20);
             this.textBoxSprzedMiasto.TabIndex = 21;
             // 
             // textBoxSprzedKod
             // 
-            this.textBoxSprzedKod.Location = new System.Drawing.Point(496, 263);
-            this.textBoxSprzedKod.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSprzedKod.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxSprzedKod.Location = new System.Drawing.Point(420, 312);
             this.textBoxSprzedKod.Name = "textBoxSprzedKod";
-            this.textBoxSprzedKod.Size = new System.Drawing.Size(91, 26);
+            this.textBoxSprzedKod.Size = new System.Drawing.Size(62, 20);
             this.textBoxSprzedKod.TabIndex = 20;
             // 
             // label27
             // 
+            this.label27.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(351, 463);
-            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Location = new System.Drawing.Point(9, 392);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(102, 20);
+            this.label27.Size = new System.Drawing.Size(71, 13);
             this.label27.TabIndex = 19;
             this.label27.Text = "Nr Rachunku";
             // 
             // label26
             // 
+            this.label26.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(414, 403);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Location = new System.Drawing.Point(457, 352);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(35, 20);
+            this.label26.Size = new System.Drawing.Size(25, 13);
             this.label26.TabIndex = 18;
             this.label26.Text = "NIP";
             // 
             // label25
             // 
+            this.label25.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(394, 317);
-            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label25.Location = new System.Drawing.Point(497, 315);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(56, 20);
+            this.label25.Size = new System.Drawing.Size(38, 13);
             this.label25.TabIndex = 17;
             this.label25.Text = "Miasto";
             // 
             // label24
             // 
+            this.label24.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(400, 357);
-            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Location = new System.Drawing.Point(9, 352);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(51, 20);
+            this.label24.Size = new System.Drawing.Size(34, 13);
             this.label24.TabIndex = 16;
             this.label24.Text = "Adres";
             // 
             // label23
             // 
+            this.label23.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(345, 268);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label23.Location = new System.Drawing.Point(339, 315);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(108, 20);
+            this.label23.Size = new System.Drawing.Size(75, 13);
             this.label23.TabIndex = 15;
             this.label23.Text = "Kod Pocztowy";
             // 
             // label22
             // 
+            this.label22.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(392, 220);
-            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label22.Location = new System.Drawing.Point(3, 315);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(57, 20);
+            this.label22.Size = new System.Drawing.Size(40, 13);
             this.label22.TabIndex = 14;
             this.label22.Text = "Nazwa";
             // 
             // textBoxSprzedNaz
             // 
-            this.textBoxSprzedNaz.Location = new System.Drawing.Point(496, 215);
-            this.textBoxSprzedNaz.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBoxSprzedNaz.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxSprzedNaz.Location = new System.Drawing.Point(49, 312);
             this.textBoxSprzedNaz.Name = "textBoxSprzedNaz";
-            this.textBoxSprzedNaz.Size = new System.Drawing.Size(424, 26);
+            this.textBoxSprzedNaz.Size = new System.Drawing.Size(284, 20);
             this.textBoxSprzedNaz.TabIndex = 13;
+            // 
+            // dataGridViewSprzedawca
+            // 
+            this.dataGridViewSprzedawca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSprzedawca.Location = new System.Drawing.Point(6, 3);
+            this.dataGridViewSprzedawca.Name = "dataGridViewSprzedawca";
+            this.dataGridViewSprzedawca.Size = new System.Drawing.Size(869, 291);
+            this.dataGridViewSprzedawca.TabIndex = 26;
             // 
             // SellerControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridViewSprzedawca);
             this.Controls.Add(this.btnUaktualnijSprzed);
             this.Controls.Add(this.textBoxSprzedNrRach);
             this.Controls.Add(this.textBoxSprzedNip);
@@ -179,9 +190,9 @@
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.textBoxSprzedNaz);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SellerControl";
-            this.Size = new System.Drawing.Size(1326, 826);
+            this.Size = new System.Drawing.Size(884, 537);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSprzedawca)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,5 +213,6 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBoxSprzedNaz;
+        private System.Windows.Forms.DataGridView dataGridViewSprzedawca;
     }
 }
