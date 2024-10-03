@@ -10,10 +10,10 @@ namespace Faktura
         String dbConnection;
         public SQLiteDatabase()
         {
-            dbConnection = "Data Source=c:\\sqlite\\db\\itmz.db";
+            //dbConnection = "Data Source=c:\\sqlite\\db\\itmz.db";
             //dbConnection = "Data Source=c:\\sqlite\\db\\faktura.db";
             //dbConnection = "Data Source=c:\\sqlite\\db\\faktura_test.db";
-            //dbConnection = "Data Source=faktura.db";
+            dbConnection = "Data Source=faktura.db";
             //dbConnection = "Data Source=c:\\sqlite\\kancelaria\\faktura.db";
             //dbConnection = "Data Source = F:\\faktura\\faktura.db";
         }
