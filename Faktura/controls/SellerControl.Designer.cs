@@ -42,6 +42,12 @@
             this.label22 = new System.Windows.Forms.Label();
             this.textBoxSprzedNaz = new System.Windows.Forms.TextBox();
             this.dataGridViewSprzedawca = new System.Windows.Forms.DataGridView();
+            this.btnDodajSprzedawce = new System.Windows.Forms.Button();
+            this.btnDomyslny = new System.Windows.Forms.Button();
+            this.btnUsunSprzedawce = new System.Windows.Forms.Button();
+            this.textBoxId = new System.Windows.Forms.TextBox();
+            this.textBoxDomyslny = new System.Windows.Forms.TextBox();
+            this.btnClearSeller = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSprzedawca)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +58,7 @@
             this.btnUaktualnijSprzed.Name = "btnUaktualnijSprzed";
             this.btnUaktualnijSprzed.Size = new System.Drawing.Size(75, 23);
             this.btnUaktualnijSprzed.TabIndex = 25;
-            this.btnUaktualnijSprzed.Text = "Dodaj";
+            this.btnUaktualnijSprzed.Text = "Uaktualnij";
             this.btnUaktualnijSprzed.UseVisualStyleBackColor = true;
             this.btnUaktualnijSprzed.Click += new System.EventHandler(this.btnUaktualnijSprzed_Click);
             // 
@@ -171,11 +177,79 @@
             this.dataGridViewSprzedawca.Name = "dataGridViewSprzedawca";
             this.dataGridViewSprzedawca.Size = new System.Drawing.Size(869, 291);
             this.dataGridViewSprzedawca.TabIndex = 26;
+            this.dataGridViewSprzedawca.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSprzedawca_CellContentClick);
+            // 
+            // btnDodajSprzedawce
+            // 
+            this.btnDodajSprzedawce.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnDodajSprzedawce.Location = new System.Drawing.Point(647, 382);
+            this.btnDodajSprzedawce.Name = "btnDodajSprzedawce";
+            this.btnDodajSprzedawce.Size = new System.Drawing.Size(75, 23);
+            this.btnDodajSprzedawce.TabIndex = 27;
+            this.btnDodajSprzedawce.Text = "Dodaj";
+            this.btnDodajSprzedawce.UseVisualStyleBackColor = true;
+            this.btnDodajSprzedawce.Click += new System.EventHandler(this.btnDodajSprzedawce_Click);
+            // 
+            // btnDomyslny
+            // 
+            this.btnDomyslny.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnDomyslny.Location = new System.Drawing.Point(485, 382);
+            this.btnDomyslny.Name = "btnDomyslny";
+            this.btnDomyslny.Size = new System.Drawing.Size(75, 23);
+            this.btnDomyslny.TabIndex = 28;
+            this.btnDomyslny.Text = "Domyślny";
+            this.btnDomyslny.UseVisualStyleBackColor = true;
+            this.btnDomyslny.Click += new System.EventHandler(this.btnDomyslny_Click);
+            // 
+            // btnUsunSprzedawce
+            // 
+            this.btnUsunSprzedawce.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnUsunSprzedawce.Location = new System.Drawing.Point(728, 382);
+            this.btnUsunSprzedawce.Name = "btnUsunSprzedawce";
+            this.btnUsunSprzedawce.Size = new System.Drawing.Size(75, 23);
+            this.btnUsunSprzedawce.TabIndex = 29;
+            this.btnUsunSprzedawce.Text = "Usuń";
+            this.btnUsunSprzedawce.UseVisualStyleBackColor = true;
+            this.btnUsunSprzedawce.Click += new System.EventHandler(this.btnUsunSprzedawce_Click);
+            // 
+            // textBoxId
+            // 
+            this.textBoxId.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxId.Location = new System.Drawing.Point(814, 300);
+            this.textBoxId.Name = "textBoxId";
+            this.textBoxId.Size = new System.Drawing.Size(26, 20);
+            this.textBoxId.TabIndex = 30;
+            this.textBoxId.Visible = false;
+            // 
+            // textBoxDomyslny
+            // 
+            this.textBoxDomyslny.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.textBoxDomyslny.Location = new System.Drawing.Point(846, 300);
+            this.textBoxDomyslny.Name = "textBoxDomyslny";
+            this.textBoxDomyslny.Size = new System.Drawing.Size(29, 20);
+            this.textBoxDomyslny.TabIndex = 31;
+            this.textBoxDomyslny.Visible = false;
+            // 
+            // btnClearSeller
+            // 
+            this.btnClearSeller.Location = new System.Drawing.Point(441, 382);
+            this.btnClearSeller.Name = "btnClearSeller";
+            this.btnClearSeller.Size = new System.Drawing.Size(26, 23);
+            this.btnClearSeller.TabIndex = 55;
+            this.btnClearSeller.Text = "X";
+            this.btnClearSeller.UseVisualStyleBackColor = true;
+            this.btnClearSeller.Click += new System.EventHandler(this.btnClearSeller_Click);
             // 
             // SellerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnClearSeller);
+            this.Controls.Add(this.textBoxDomyslny);
+            this.Controls.Add(this.textBoxId);
+            this.Controls.Add(this.btnUsunSprzedawce);
+            this.Controls.Add(this.btnDomyslny);
+            this.Controls.Add(this.btnDodajSprzedawce);
             this.Controls.Add(this.dataGridViewSprzedawca);
             this.Controls.Add(this.btnUaktualnijSprzed);
             this.Controls.Add(this.textBoxSprzedNrRach);
@@ -214,5 +288,11 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBoxSprzedNaz;
         private System.Windows.Forms.DataGridView dataGridViewSprzedawca;
+        private System.Windows.Forms.Button btnDodajSprzedawce;
+        private System.Windows.Forms.Button btnDomyslny;
+        private System.Windows.Forms.Button btnUsunSprzedawce;
+        private System.Windows.Forms.TextBox textBoxId;
+        private System.Windows.Forms.TextBox textBoxDomyslny;
+        private System.Windows.Forms.Button btnClearSeller;
     }
 }

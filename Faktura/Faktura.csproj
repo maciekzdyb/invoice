@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventArgs\BuyerEventArgs.cs" />
+    <Compile Include="EventArgsClasses\BuyerEventArgs.cs" />
     <Compile Include="controls\BuyersControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -74,15 +74,16 @@
     <Compile Include="dto\Invoice.cs" />
     <Compile Include="dto\Order.cs" />
     <Compile Include="dto\Seller.cs" />
+    <Compile Include="EventArgsClasses\SellerEventArgs.cs" />
     <Compile Include="Formatowanie.cs" />
-    <Compile Include="EventArgs\InvoiceEventArgs.cs" />
+    <Compile Include="EventArgsClasses\InvoiceEventArgs.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EventArgs\OrderEventArgs.cs" />
+    <Compile Include="EventArgsClasses\OrderEventArgs.cs" />
     <Compile Include="Printing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="dto\AssemblyInfo.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="controls\OrderControl.Designer.cs">
       <DependentUpon>OrderControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="SQLiteDatabase.cs" />
     <EmbeddedResource Include="controls\BuyersControl.resx">
       <DependentUpon>BuyersControl.cs</DependentUpon>

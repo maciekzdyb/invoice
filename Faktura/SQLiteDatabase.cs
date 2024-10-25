@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace Faktura
 {
-    class SQLiteDatabase
+    public class SQLiteDatabase
     {
         String dbConnection;
         public SQLiteDatabase()
@@ -22,6 +22,7 @@ namespace Faktura
         {
             dbConnection = String.Format("Data Source={0}", inputFile);
         }
+
         public SQLiteDatabase(Dictionary<String, String> connectionOpts)
         {
             String str = "";
@@ -32,6 +33,7 @@ namespace Faktura
             str = str.Trim().Substring(0, str.Length - 1);
             dbConnection = str;
         }
+
         public DataTable GetDataTable(string sql)
         {
             DataTable dt = new DataTable();
@@ -165,6 +167,43 @@ namespace Faktura
                 seller.signature = dr["podpis"].ToString();
             }
             return seller;
+        }
+
+        internal Seller GetDefaultSeller()
+        {
+            string query = "SELECT * FROM sprzedawca WHERE domyslny = 1";
+            DataTable dt = GetDataTable(query);
+            Seller seller = new Seller();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                seller.id = int.Parse(dr["id"].ToString());
+                seller.name = dr["nazwa"].ToString();
+                seller.postCode = dr["kod"].ToString();
+                seller.city = dr["miasto"].ToString();
+                seller.address = dr["adres"].ToString();
+                seller.nip = dr["nip"].ToString();
+                seller.rachunek = dr["rachunek"].ToString();
+                seller.domyslny = int.Parse(dr["domyslny"].ToString());
+                seller.signature = dr["podpis"].ToString();
+            }
+            return seller;
+        }
+
+        internal bool ResetDafaultSeller(Seller defaultSeller)
+        {
+            string where = String.Format("id = {0}", defaultSeller.id);
+            Dictionary<string, string> dane = new Dictionary<string, string>();
+            dane.Add("domyslny", "0");
+            return Update("sprzedawca", dane, where);
+        }
+
+        internal bool SetDafaultSeller(Seller defaultSeller)
+        {
+            string where = String.Format("id = {0}", defaultSeller.id);
+            Dictionary<string, string> dane = new Dictionary<string, string>();
+            dane.Add("domyslny", "1");
+            return Update("sprzedawca", dane, where);
         }
 
         internal Order getOrder(int id)

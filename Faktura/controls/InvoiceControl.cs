@@ -36,6 +36,21 @@ namespace Faktura
             printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
         }
 
+        public Seller updateInvoiceSeller
+        {
+            get { return seller; }
+            set
+            {
+                seller = value;
+                nazwaSprzedtextBox.Text = seller.name;
+                kodSprzedtextBox.Text = seller.postCode;
+                miejscSprzedtextBox.Text = seller.city;
+                adresSprzedtextBox.Text = seller.address;
+                nipSprzedtextBox.Text = seller.nip;
+                rachunekSprzedBox.Text = seller.rachunek;
+                invoice.seller_id = seller.id;
+            }
+        }
         public Buyer updateInvoiceBuyer
         {
             get { return buyer; }
@@ -388,7 +403,7 @@ namespace Faktura
                 }
             } else
             {
-                MessageBox.Show("Faktura nie kompletna");
+                MessageBox.Show("Faktura niekompletna");
             }
         }
 

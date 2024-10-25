@@ -13,6 +13,7 @@ namespace Faktura
             list = initializeControlsList();
             buyersControl1.UpdateText += new EventHandler<BuyerEventArgs>(buyersControl1_UpdateText);
             orderControl1.UpdateText += new EventHandler<OrderEventArgs>(orderControl1_UpdateText);
+            sellerControl1.UpdateText += new EventHandler<SellerEventArgs>(sellerControl1_UpdateText);
             invoicesListControl1.UpdateText += new EventHandler<InvoiceEventArgs>(invoicesListControl1_UpdateText);
             invoiceControl1.UpdateInvoicesList += new EventHandler(invoiceControl1_UpdateInvoicesList);
             invoiceControl1.ShowBuyers += new EventHandler(invoiceControl1_ShowBuyers);
@@ -32,6 +33,19 @@ namespace Faktura
         void invoicesListControl1_ShowInvoice(object sender, EventArgs e)
         {
             showUserControl(invoiceControl1);
+        }
+
+        void sellerControl1_UpdateText(object sender, SellerEventArgs e)
+        {
+            Seller seller = new Seller();
+            seller.id = e.id;
+            seller.name = e.name;
+            seller.address = e.address;
+            seller.city = e.city;
+            seller.nip = e.nip;
+            seller.postCode = e.postCode;
+            seller.rachunek = e.rachunek;
+            invoiceControl1.updateInvoiceSeller = seller;
         }
 
         void buyersControl1_UpdateText(object sender, BuyerEventArgs e)

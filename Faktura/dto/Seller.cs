@@ -1,7 +1,7 @@
 ﻿
 namespace Faktura
 {
-    class Seller : Buyer
+    public class Seller : Buyer
     {
         public int domyslny { get; set; }
         public string rachunek { get; set; }
