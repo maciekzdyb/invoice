@@ -33,7 +33,7 @@ namespace Faktura
             order = new Order();
             domyslny_sprzedawca();
             nr_faktury();
-            printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+            
         }
 
         public Seller updateInvoiceSeller
@@ -219,6 +219,8 @@ namespace Faktura
             
             if (validate())
             {
+                printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+
                 printDocument1.PrinterSettings.Copies = 2;
                 printPreviewDialog1.Document = printDocument1;
                 printPreviewDialog1.ShowDialog();

@@ -91,10 +91,10 @@ namespace Faktura
                     dataGridViewOdbiorcy.Refresh();
                     dataGridViewOdbiorcy.DataSource = recipe;
                     dataGridViewOdbiorcy.Columns[0].Visible = false;
-                    dataGridViewOdbiorcy.Columns[1].Width = 180;
-                    dataGridViewOdbiorcy.Columns[2].Width = 50;
-                    dataGridViewOdbiorcy.Columns[3].Width = 50;
-                    dataGridViewOdbiorcy.Columns[4].Width = 150;
+                    dataGridViewOdbiorcy.Columns[1].Width = 350;
+                    dataGridViewOdbiorcy.Columns[2].Width = 55;
+                    dataGridViewOdbiorcy.Columns[3].Width = 100;
+                    dataGridViewOdbiorcy.Columns[4].Width = 250;
                     dataGridViewOdbiorcy.Columns[5].Width = 100;
                 }
             }

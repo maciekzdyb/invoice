@@ -175,7 +175,7 @@
             this.dataGridViewSprzedawca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSprzedawca.Location = new System.Drawing.Point(6, 3);
             this.dataGridViewSprzedawca.Name = "dataGridViewSprzedawca";
-            this.dataGridViewSprzedawca.Size = new System.Drawing.Size(869, 291);
+            this.dataGridViewSprzedawca.Size = new System.Drawing.Size(875, 291);
             this.dataGridViewSprzedawca.TabIndex = 26;
             this.dataGridViewSprzedawca.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSprzedawca_CellContentClick);
             // 

@@ -179,10 +179,9 @@ namespace Faktura
             this.dataGridViewOdbiorcy.Name = "dataGridViewOdbiorcy";
             this.dataGridViewOdbiorcy.ReadOnly = true;
             this.dataGridViewOdbiorcy.RowHeadersVisible = false;
-            this.dataGridViewOdbiorcy.Size = new System.Drawing.Size(533, 473);
+            this.dataGridViewOdbiorcy.Size = new System.Drawing.Size(875, 473);
             this.dataGridViewOdbiorcy.TabIndex = 39;
             this.dataGridViewOdbiorcy.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOdbiorcy_CellContentClick);
-            //this.dataGridViewOdbiorcy.KeyPress += new KeyPressEventHandler(this.dataGridViewOdbiorcy_KeyPress);
             // 
             // button1
             // 
